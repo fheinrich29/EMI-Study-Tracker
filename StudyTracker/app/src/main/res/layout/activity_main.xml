@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Vorlesungen"
+            android:textSize="24sp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="514dp" />
 
@@ -32,18 +33,21 @@
             android:id="@+id/button5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="24sp"
             android:text="Übungen" />
 
         <Button
             android:id="@+id/button6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="24sp"
             android:text="Fälligkeiten" />
 
         <Button
             android:id="@+id/button7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="24sp"
             android:text="Daten" />
 
     </LinearLayout>
