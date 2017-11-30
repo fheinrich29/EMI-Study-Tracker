@@ -14,7 +14,9 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hier werden mal die Einstellungen stehen" />
+            android:text="Hier werden mal die Einstellungen stehen"
+            android:textAlignment="center"
+            android:textSize="30sp" />
     </GridLayout>
 
 </android.support.constraint.ConstraintLayout>
