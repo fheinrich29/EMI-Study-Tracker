@@ -16,12 +16,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/buttonSettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Settings" />
-
-            <Button
                 android:id="@+id/button4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +36,7 @@
                 android:text="Fälligkeiten" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/Daten"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Button" />
