@@ -9,8 +9,8 @@
     <string name="AuD">AuD</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="filler2">Hier soll mal die Statistik stehen</string>
+    <string name="filler2">Hier soll später mal die Statistik stehen</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="filler_calendar">Hier wird mal der Google Calendar stehen. In der Zwischenzeit ist hier erst mal ein normaler Kalender...</string>
+    <string name="filler_calendar">Hier wird später mal der Google Calendar stehen. In der Zwischenzeit ist hier erst mal ein normaler Kalender...</string>
 </resources>
