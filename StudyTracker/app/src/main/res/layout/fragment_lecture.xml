@@ -1,0 +1,70 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.studytracker.LectureFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="Vorlesungen"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="514dp" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="Übungen"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="Fälligkeiten"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="Daten"
+        android:textSize="30sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="55dp"
+                android:text="Fach Bearbeiten"
+                android:textSize="24sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

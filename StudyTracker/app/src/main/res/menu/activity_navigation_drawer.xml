@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_all"
+            android:title="alle Fächer" />
+        <item
+            android:id="@+id/nav_emi"
+            android:title="EMI" />
+        <item
+            android:id="@+id/nav_aud"
+            android:title="AuD" />
+
+    </group>
+
+    <item android:title="Neu">
+        <menu>
+            <item
+                android:id="@+id/nav_new"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="neues Fach hinzufügen" />
+        </menu>
+    </item>
+
+</menu>
