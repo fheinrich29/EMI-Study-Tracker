@@ -51,12 +51,20 @@
         android:text="Daten"
         android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/textView2"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="zwischen Fragments kann man durch swipen wechseln... Werde morgen die tabs noch clickable machen"
-            android:textSize="24sp" />
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="55dp"
+                android:text="Fach Bearbeiten"
+                android:textSize="24sp" />
+        </RelativeLayout>
+
     </LinearLayout>
 
 </FrameLayout>

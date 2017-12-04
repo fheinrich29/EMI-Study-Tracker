@@ -83,10 +83,16 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        myToolbar.setTitle(R.string.AuD);
 
-        if (id == R.id.nav_new) {
-            // Create new subject
+        //TODO: Löschen / ist nur für die Präsentation
+        if (id == R.id.nav_aud) {
+            myToolbar.setTitle(R.string.AuD);
+        }
+        if (id ==R.id.nav_emi) {
+            myToolbar.setTitle("EMI");
+        }
+        if (id == R.id.nav_all) {
+            myToolbar.setTitle("Alle Fächer");
         }
 
 
