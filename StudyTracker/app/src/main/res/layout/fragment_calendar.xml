@@ -16,11 +16,6 @@
             android:text="@string/filler_calendar"
             android:textSize="24sp" />
 
-        <CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
     </LinearLayout>
 
 </FrameLayout>

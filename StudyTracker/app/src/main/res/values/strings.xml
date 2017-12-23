@@ -7,10 +7,15 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="all">Alle Fächer</string>
     <string name="AuD">AuD</string>
+    <string name="vorlesungen">Vorlesungen</string>
+    <string name="uebungen">Übungen</string>
+    <string name="daten">Daten</string>
+    <string name="bearbeiten">Fach bearbeiten</string>
+    <string name="faelligkeiten">Fälligkeiten</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="filler2">Hier soll später mal die Statistik stehen</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="filler_calendar">Hier wird später mal der Google Calendar stehen. In der Zwischenzeit ist hier erst mal ein normaler Kalender...</string>
+    <string name="filler_calendar">Hier wird später mal der Google Calendar stehen.</string>
 </resources>
