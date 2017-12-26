@@ -12,6 +12,7 @@
     <string name="daten">Daten</string>
     <string name="bearbeiten">Fach bearbeiten</string>
     <string name="faelligkeiten">Fälligkeiten</string>
+    <string name="nav_new">Neues Fach anlegen</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="filler2">Hier soll später mal die Statistik stehen</string>

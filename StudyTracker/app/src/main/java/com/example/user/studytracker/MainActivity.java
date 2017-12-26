@@ -86,10 +86,11 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        //TODO: Löschen / ist nur für die Präsentation
         if (id == R.id.nav_new){
             startActivity(new Intent(this, EditActivity.class));
         }
+
+        //TODO: Löschen / ist nur für die Präsentation
         if (id == R.id.nav_aud) {
             myToolbar.setTitle(R.string.AuD);
         }
