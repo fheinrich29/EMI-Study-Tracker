@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -17,9 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,13 +58,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
+    // creates the menu
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    // when you click on the settings-button in the toolbar
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
@@ -80,22 +77,14 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
+    // handles what happens if you click the navigationDrawer
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_new){
-            startActivity(new Intent(this, EditActivity.class));
-        }
-
-        //TODO: Löschen / ist nur für die Präsentation
-        if (id == R.id.nav_aud) {
-            myToolbar.setTitle(R.string.AuD);
-        }
-        if (id ==R.id.nav_emi) {
-            myToolbar.setTitle("EMI");
+            startActivity(new Intent(this, AddActivity.class));
         }
         if (id == R.id.nav_all) {
             myToolbar.setTitle("Alle Fächer");
@@ -107,6 +96,7 @@ public class MainActivity extends AppCompatActivity
             return true;
     }
 
+    // builds the UI for the tabs on the bottom
     public void buildTabs(){
         final TabLayout tabLayout = findViewById(R.id.tab_layout);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

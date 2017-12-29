@@ -13,6 +13,7 @@ import android.widget.Button;
 public class LectureFragment extends Fragment {
 
     Button btnEdit;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +21,10 @@ public class LectureFragment extends Fragment {
 
     }
 
+    // Inflates the layout for this fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_lecture, container, false);
 
         btnEdit = (Button) fragmentView.findViewById(R.id.button);
@@ -38,7 +39,7 @@ public class LectureFragment extends Fragment {
     }
 
     public void goToEdit(){
-        startActivity(new Intent(this.getActivity(), EditActivity.class));
+        startActivity(new Intent(this.getActivity(), AddActivity.class));
     }
 }
 

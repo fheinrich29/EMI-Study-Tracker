@@ -9,8 +9,10 @@ import java.util.Date;
 public class Occasion {
     Date start;
     Date end;
-        public Occasion(Date start, Date end){
+    boolean attended;
+        public Occasion(Date start, Date end, boolean attended){
             this.start = start;
             this.end = end;
+            this.attended = attended;
         }
     }

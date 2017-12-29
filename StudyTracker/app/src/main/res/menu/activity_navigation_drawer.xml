@@ -18,12 +18,6 @@
         <item
             android:id="@+id/nav_all"
             android:title="alle Fächer" />
-        <item
-            android:id="@+id/nav_emi"
-            android:title="EMI" />
-        <item
-            android:id="@+id/nav_aud"
-            android:title="AuD" />
 
     </group>
 
