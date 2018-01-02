@@ -10,6 +10,7 @@ public class Occasion {
     Date start;
     Date end;
     boolean attended;
+
         public Occasion(Date start, Date end, boolean attended){
             this.start = start;
             this.end = end;
