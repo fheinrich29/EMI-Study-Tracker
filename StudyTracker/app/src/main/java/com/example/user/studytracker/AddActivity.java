@@ -24,13 +24,15 @@ import java.util.List;
      List<EventRule> exerciseRules = new ArrayList<EventRule>();
      List<EventRule> homeworkRules = new ArrayList<EventRule>();
 
+     EventRule tes2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Calendar cal = Calendar.getInstance();
         EventRule test = new EventRule(true, cal, cal, 1, 1, 5, 1, 1, 1, 1);
-        EventRule tes2 = new EventRule(true, cal, cal, 1, 7, 5, 1, 1, 1, 1);
+        tes2 = new EventRule(true, cal, cal, 1, 7, 5, 1, 1, 1, 1);
         lectureRules.add(test);
         lectureRules.add(tes2);
 
@@ -62,14 +64,15 @@ import java.util.List;
              LinearLayout.LayoutParams cllparam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
              childlinLec.setLayoutParams(cllparam);
              linLecture.addView(childlinLec);
-             Button btnEdit = new Button(this);
+             final Button btnEdit = new Button(this);
              btnEdit.setText("edit"); //TODO: change to display rule properly
+             btnEdit.setTag(i);
              btnEdit.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
                      Intent intent= new Intent(getApplicationContext(), EditRulesActivity.class);
+                     intent.putExtra("rule", lectureRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
                      startActivity(intent);
-                     //TODO: put extra
                  }
              });
              TextView text = new TextView(this);
@@ -83,8 +86,8 @@ import java.util.List;
              @Override
              public void onClick(View v) {
                  Intent intent = new Intent(getApplicationContext(), EditRulesActivity.class);
+                 intent.putExtra("number", 1);
                  startActivity(intent);
-                 //TODO: put extra
              }
          });
          linLecture.addView(btnNewLecture, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -97,14 +100,15 @@ import java.util.List;
              LinearLayout.LayoutParams cllparam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
              childInexer.setLayoutParams(cllparam);
              linExercise.addView(childInexer);
-             Button btnEdit = new Button(this);
+             final Button btnEdit = new Button(this);
+             btnEdit.setTag(i);
              btnEdit.setText("edit"); //TODO: change to display rule properly
              btnEdit.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
                      Intent intent= new Intent(getApplicationContext(), EditRulesActivity.class);
+                     intent.putExtra("rule", lectureRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
                      startActivity(intent);
-                     //TODO: put extra
                  }
              });
              TextView text = new TextView(this);
@@ -118,29 +122,30 @@ import java.util.List;
              @Override
              public void onClick(View v) {
                  Intent intent = new Intent(getApplicationContext(), EditRulesActivity.class);
+                 intent.putExtra("number", 2);
                  startActivity(intent);
-                 //TODO: put extra
              }
          });
-         linLecture.addView(btnNewExercise, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+         linExercise.addView(btnNewExercise, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
          //change layout of homework
-         LinearLayout linHomework = findViewById(R.id.linLayoutExercise);
+         LinearLayout linHomework = findViewById(R.id.linLayoutHomework);
          for (int i=0; i<homeworkRules.size(); i++){
              LinearLayout childLinHomework = new LinearLayout(this);
              childLinHomework.setOrientation(LinearLayout.HORIZONTAL);
              LinearLayout.LayoutParams cllparam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
              childLinHomework.setLayoutParams(cllparam);
              linHomework.addView(childLinHomework);
-             Button btnEdit = new Button(this);
+             final Button btnEdit = new Button(this);
+             btnEdit.setTag(i);
              btnEdit.setText("edit"); //TODO: change to display rule properly
              btnEdit.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
                      Intent intent= new Intent(getApplicationContext(), EditRulesActivity.class);
+                     intent.putExtra("rule", lectureRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
                      startActivity(intent);
-                     //TODO: put extra
                  }
              });
              TextView text = new TextView(this);
@@ -155,10 +160,10 @@ import java.util.List;
              public void onClick(View v) {
                  Intent intent = new Intent(getApplicationContext(), EditRulesActivity.class);
                  startActivity(intent);
-                 //TODO: put extra
+                 intent.putExtra("number", 3);
              }
          });
-         linLecture.addView(btnNewHomework, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+         linHomework.addView(btnNewHomework, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
      }
 }

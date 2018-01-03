@@ -1,8 +1,9 @@
 package com.example.user.studytracker;
 
 
+import java.io.Serializable;
 
-public class Subject {
+public class Subject  implements Serializable{
     String name;
     Occasion[] lecture;
     Occasion[] exercise;

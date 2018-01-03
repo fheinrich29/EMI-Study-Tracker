@@ -18,6 +18,18 @@
     <string name="addAct_lecture">Lectures: </string>
     <string name="addAct_exercise">Exercises:</string>
     <string name="addAct_homework">Homework: </string>
+    <string name="radio_regularly">regularly </string>
+    <string name="radio_oneTime">one-time </string>
+    <string name="txt_startDate">start date: </string>
+    <string name="txt_endDate">end date: </string>
+    <string name="radio_daily">daily </string>
+    <string name="radio_weekly">weekly </string>
+    <string name="radio_biweekly">bi-weekly </string>
+    <string name="txt_dayOfWeek">day of week: </string>
+    <string name="txt_startTime">starting time: </string>
+    <string name="txt_endTime">ending time: </string>
+    <string name="btn_discard">Discard </string>
+    <string name="btn_accept">Save </string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -1,12 +1,13 @@
 package com.example.user.studytracker;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by User on 30/12/2017.
  */
 
-public class EventRule {
+public class EventRule implements Serializable {
     boolean repeating;
     Calendar startDate;
     Calendar endDate;
