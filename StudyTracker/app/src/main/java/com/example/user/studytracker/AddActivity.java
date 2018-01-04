@@ -32,10 +32,25 @@ import java.util.List;
 
         Calendar cal = Calendar.getInstance();
         //TODO: LÖSCHEN!!
-        EventRule test = new EventRule(true, cal, cal, 1, 1, 5, 1, 1, 1, 1);
-        tes2 = new EventRule(true, cal, cal, 1, 7, 5, 1, 1, 1, 1);
+        EventRule test = new EventRule(true, cal, cal, 1, 1, 5, cal, cal);
+        tes2 = new EventRule(true, cal, cal, 1, 7, 5, cal, cal);
         lectureRules.add(test);
         lectureRules.add(tes2);
+
+        Intent receivedIntent = getIntent();
+        if(receivedIntent.getSerializableExtra("eventRule")!=null && receivedIntent.getIntExtra("type", 0)>0) {
+            EventRule ruleFromIntent = (EventRule) receivedIntent.getSerializableExtra("eventRule");
+            if(receivedIntent.getIntExtra("type", 0)==1){
+                lectureRules.add(ruleFromIntent);
+            }
+            else if(receivedIntent.getIntExtra("type", 0)==2){
+                exerciseRules.add(ruleFromIntent);
+            }
+            if(receivedIntent.getIntExtra("type", 0)==3){
+                homeworkRules.add(ruleFromIntent);
+            }
+            Toast.makeText(this, receivedIntent.getSerializableExtra("eventRule").toString(), Toast.LENGTH_SHORT).show();
+        }
 
         setContentView(R.layout.activity_add);
         buildContentView();
@@ -72,6 +87,8 @@ import java.util.List;
                  public void onClick(View v) {
                      Intent intent= new Intent(getApplicationContext(), EditRulesActivity.class);
                      intent.putExtra("rule", lectureRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
+                     intent.putExtra("number", 1);
+                     homeworkRules.remove(Integer.valueOf(String.valueOf(btnEdit.getTag())));
                      startActivity(intent);
                  }
              });
@@ -107,7 +124,9 @@ import java.util.List;
                  @Override
                  public void onClick(View v) {
                      Intent intent= new Intent(getApplicationContext(), EditRulesActivity.class);
-                     intent.putExtra("rule", lectureRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
+                     intent.putExtra("rule", exerciseRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
+                     intent.putExtra("number", 2);
+                     exerciseRules.remove(Integer.valueOf(String.valueOf(btnEdit.getTag())));
                      startActivity(intent);
                  }
              });
@@ -144,7 +163,9 @@ import java.util.List;
                  @Override
                  public void onClick(View v) {
                      Intent intent= new Intent(getApplicationContext(), EditRulesActivity.class);
-                     intent.putExtra("rule", lectureRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
+                     intent.putExtra("rule", homeworkRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
+                     intent.putExtra("number", 3);
+                     homeworkRules.remove(Integer.valueOf(String.valueOf(btnEdit.getTag())));
                      startActivity(intent);
                  }
              });

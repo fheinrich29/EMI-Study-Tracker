@@ -14,22 +14,21 @@ public class EventRule implements Serializable {
     int type;
     int increment;
     int dayOfWeek;
-    int startHour;
-    int endHour;
-    int startMinute;
-    int endMinute;
+    Calendar startTime;
+    Calendar endTime;
 
     public EventRule(boolean rep, Calendar startD, Calendar endD, int type, int inc, int dayOfWeek,
-                     int startHour, int endHour, int startMinute, int endMinute){
+                     Calendar startTime, Calendar endTime){
         this.repeating = rep;
         this.startDate = startD;
         this.endDate = endD;
         this.type = type;
         this.increment = inc;
         this.dayOfWeek = dayOfWeek;
-        this.startHour = startHour;
-        this. endHour = endHour;
-        this. startMinute = startMinute;
-        this.endMinute = endMinute;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+    public String toString(){
+        return "type"+type+" startDate "+startDate;
     }
 }
