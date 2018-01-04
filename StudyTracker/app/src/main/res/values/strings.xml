@@ -30,6 +30,7 @@
     <string name="txt_endTime">ending time: </string>
     <string name="btn_discard">Discard </string>
     <string name="btn_accept">Save </string>
+    <string name="txt_missingEntry">Please make sure to fill in all information first.</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

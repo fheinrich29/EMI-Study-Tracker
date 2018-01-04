@@ -37,14 +37,14 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/radio_regularly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/radio_regularly" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/radio_oneTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -98,6 +98,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_Radio_repeatRate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -109,21 +110,21 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButton5"
+                    android:id="@+id/radio_daily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/radio_daily" />
 
                 <RadioButton
-                    android:id="@+id/radioButton6"
+                    android:id="@+id/radio_weekly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/radio_weekly" />
 
                 <RadioButton
-                    android:id="@+id/radioButton7"
+                    android:id="@+id/radio_biWeekly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -133,6 +134,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_dayOfWeek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -171,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="time" />
+                android:inputType="date" />
         </LinearLayout>
 
         <LinearLayout

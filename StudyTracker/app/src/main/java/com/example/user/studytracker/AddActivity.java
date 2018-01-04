@@ -31,11 +31,11 @@ import java.util.List;
         super.onCreate(savedInstanceState);
 
         Calendar cal = Calendar.getInstance();
+        //TODO: LÖSCHEN!!
         EventRule test = new EventRule(true, cal, cal, 1, 1, 5, 1, 1, 1, 1);
         tes2 = new EventRule(true, cal, cal, 1, 7, 5, 1, 1, 1, 1);
         lectureRules.add(test);
         lectureRules.add(tes2);
-
 
         setContentView(R.layout.activity_add);
         buildContentView();

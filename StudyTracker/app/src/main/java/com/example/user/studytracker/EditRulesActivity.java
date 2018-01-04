@@ -1,9 +1,12 @@
 package com.example.user.studytracker;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +16,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +42,15 @@ public class EditRulesActivity extends AppCompatActivity{
     private TimePickerDialog startTimeDialog;
     private TimePickerDialog endTimeDialog;
 
+    RadioButton radioRegularly;
+    RadioButton radioOneTime;
+    RadioButton radioDaily;
+    RadioButton radioWeekly;
+    RadioButton radioBiWeekly;
+
+    Button btnDiscard;
+    Button btnAccept;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +62,7 @@ public class EditRulesActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayShowHomeEnabled(false);
 
         dateFormatter = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
-        timeFormatter = new SimpleDateFormat("hh:mm", Locale.GERMANY);
+        timeFormatter = new SimpleDateFormat("HH:mm", Locale.GERMANY);
 
         fromDateEdit = (EditText) findViewById(R.id.fromDate);
         fromDateEdit.setInputType(InputType.TYPE_NULL);
@@ -66,7 +80,16 @@ public class EditRulesActivity extends AppCompatActivity{
         toDateEdit = (EditText) findViewById(R.id.toDate);
         toDateEdit.setInputType(InputType.TYPE_NULL);
 
+        radioRegularly = findViewById(R.id.radio_regularly);
+        radioOneTime = findViewById(R.id.radio_oneTime);
+        radioDaily = findViewById(R.id.radio_daily);
+        radioWeekly = findViewById(R.id.radio_weekly);
+        radioBiWeekly = findViewById(R.id.radio_biWeekly);
+
         setEdittextData();
+        setRadioListeners();
+
+        setButtonLogic();
     }
 
 
@@ -180,5 +203,112 @@ public class EditRulesActivity extends AppCompatActivity{
         });
         d.show();
 
+    }
+
+    private void setRadioListeners(){
+        final LinearLayout linear_radio = findViewById(R.id.linear_Radio_repeatRate);
+        final LinearLayout linear_dayOfWeek = findViewById(R.id.linear_dayOfWeek);
+
+        radioRegularly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (linear_radio.getVisibility()!= View.VISIBLE){
+                    linear_radio.setVisibility(View.VISIBLE);
+                }
+                if(radioBiWeekly.isChecked() || radioWeekly.isChecked()){
+                    if(linear_dayOfWeek.getVisibility()!=View.VISIBLE){
+                        linear_dayOfWeek.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+
+        radioOneTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(linear_radio.getVisibility()==View.VISIBLE){
+                    linear_radio.setVisibility(View.INVISIBLE);
+                }
+                if(linear_dayOfWeek.getVisibility()== View.VISIBLE){
+                    linear_dayOfWeek.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        radioDaily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(linear_dayOfWeek.getVisibility()== View.VISIBLE){
+                    linear_dayOfWeek.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        radioWeekly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(linear_dayOfWeek.getVisibility()!=View.VISIBLE){
+                    linear_dayOfWeek.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        radioBiWeekly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(linear_dayOfWeek.getVisibility()!=View.VISIBLE){
+                    linear_dayOfWeek.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    private void setButtonLogic(){
+        btnDiscard = findViewById(R.id.btnDiscard);
+        btnAccept = findViewById(R.id.btnAccept);
+
+        btnDiscard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if((!radioOneTime.isChecked() && !radioRegularly.isChecked())
+               ||isEmpty(fromDateEdit)||isEmpty(toDateEdit)
+               ||isEmpty(startTimeEdtit)||isEmpty(endTimeEdit)
+               ||(radioRegularly.isChecked()&&(!radioDaily.isChecked()&&!radioWeekly.isChecked()&&!radioBiWeekly.isChecked()))
+               ||(radioRegularly.isChecked()&&(radioWeekly.isChecked()||radioBiWeekly.isChecked())&&isEmpty(dayOfWeekEdit))){
+
+                   AlertDialog.Builder builder;
+                   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                       builder = new AlertDialog.Builder(EditRulesActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                   } else {
+                       builder = new AlertDialog.Builder(EditRulesActivity.this);
+                   }
+                   builder.setTitle("Information missing")
+                           .setMessage(R.string.txt_missingEntry)
+                           .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                               public void onClick(DialogInterface dialog, int which) {
+                                   dialog.dismiss();
+                               }
+                           })
+                           .setIcon(android.R.drawable.ic_dialog_alert)
+                           .show();
+               }
+
+            }
+        });
+    }
+
+    private boolean isEmpty(EditText etText) {
+        if (etText.getText().toString().trim().length() > 0)
+            return false;
+
+        return true;
     }
 }
