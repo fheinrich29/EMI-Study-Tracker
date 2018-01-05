@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,6 +28,13 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        Intent receivedIntent = getIntent();
+        if(receivedIntent.hasExtra("subject")){
+
+        Subject subj = (Subject) receivedIntent.getSerializableExtra("subject");
+        Toast.makeText(this, subj.toString(), Toast.LENGTH_SHORT);
+        }
 
 
 

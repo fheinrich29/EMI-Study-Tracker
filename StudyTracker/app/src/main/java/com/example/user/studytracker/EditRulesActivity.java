@@ -60,8 +60,8 @@ public class EditRulesActivity extends AppCompatActivity{
     EventRule eventRuleIntent;
     Intent receivedIntent;
 
-    final String[] weekDays = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-    final String[] oddOrEvenString = new String [] {"odd", "even"};
+    final String[] weekDays = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    final String[] oddOrEvenString = new String [] {"even", "odd"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -505,9 +505,11 @@ public class EditRulesActivity extends AppCompatActivity{
             else{
                 inc=14;
                 for (int i = 0; i<oddOrEvenString.length; i++){
-                    if(String.valueOf(oddOrEvenEdit.getText())==oddOrEvenString[i]){
+                    if(oddOrEvenEdit.getText().toString().equals(oddOrEvenString[i])){
                         oddOrEvenNumber=i+1;
                         break;
+
+
                     }
                 }
             }
@@ -515,7 +517,7 @@ public class EditRulesActivity extends AppCompatActivity{
         int dayOfWeek=0;
         if(radioRegularly.isChecked() && (radioWeekly.isChecked() || radioBiWeekly.isChecked())){
             for (int i = 0; i<weekDays.length; i++){
-                if(String.valueOf(dayOfWeekEdit.getText())==weekDays[i]){
+                if((dayOfWeekEdit.getText().toString()).equals(weekDays[i])){
                     dayOfWeek=i+1;
                     break;
                 }

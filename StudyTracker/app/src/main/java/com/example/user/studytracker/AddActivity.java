@@ -1,7 +1,10 @@
  package com.example.user.studytracker;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -31,9 +34,21 @@ import java.util.Locale;
 
      EventRule tes2;
 
+     Button btnDiscard;
+     Button btnAccept;
+     EditText editName;
+
+     final String[] weekDays = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+     final String[] oddOrEvenString = new String [] {"even", "odd"};
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
 
         Calendar cal = Calendar.getInstance();
         //TODO: LÖSCHEN!!
@@ -41,6 +56,7 @@ import java.util.Locale;
         tes2 = new EventRule(true, cal, cal, 1, 7, 5,0, cal, cal);
         lectureRules.add(test);
         lectureRules.add(tes2);
+
 
         Intent receivedIntent = getIntent();
         if(receivedIntent.getSerializableExtra("eventRule")!=null && receivedIntent.getIntExtra("type", 0)>0) {
@@ -59,12 +75,7 @@ import java.util.Locale;
 
         setContentView(R.layout.activity_add);
         buildContentView();
-
-
-
-
-
-
+        setButtonLogic();
 
     }
     // navigates back when you press the back button in the menu
@@ -200,8 +211,7 @@ import java.util.Locale;
          Calendar endTime = rule.endTime;
          int dayOfWeek = rule.dayOfWeek;
          int oddOrEven = rule.oddOrEven;
-         final String[] weekDays = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-         final String[] oddOrEvenString = new String [] {"odd", "even"};
+
 
          SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
          SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.GERMANY);
@@ -222,5 +232,129 @@ import java.util.Locale;
              return repeat+" "+timeFormat.format(startTime.getTime())+ " - "+timeFormat.format(endTime.getTime())+" \n"+
                      "Start: "+dateFormat.format(startDate.getTime())+", End: "+dateFormat.format(endDate.getTime());
          }
+     }
+     private void setButtonLogic(){
+         btnDiscard = findViewById(R.id.add_btnDiscard);
+         btnAccept = findViewById(R.id.add_btnAccept);
+
+         btnDiscard.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 Intent intent = new Intent(view.getContext(), MainActivity.class);
+                 startActivity(intent);
+             }
+         });
+
+         btnAccept.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 editName = findViewById(R.id.editText_name);
+                 if (editName.getText().toString().trim().length() == 0)
+                 {
+                     AlertDialog.Builder builder;
+                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                         builder = new AlertDialog.Builder(AddActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                     } else {
+                         builder = new AlertDialog.Builder(AddActivity.this);
+                     }
+                     builder.setTitle("Information missing")
+                             .setMessage(R.string.txt_missingEntry)
+                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                 public void onClick(DialogInterface dialog, int which) {
+                                     dialog.dismiss();
+                                 }
+                             })
+                             .setIcon(android.R.drawable.ic_dialog_alert)
+                             .show();
+                 }
+                 else {
+                     Intent intent = new Intent(view.getContext(), MainActivity.class);
+                     intent.putExtra("subject", buildSubject());
+                     startActivity(intent);
+                 }
+             }
+         });
+     }
+
+     private Subject buildSubject(){
+         String name = editName.getText().toString();
+         List<Occasion> lectureOccasion = new ArrayList<Occasion>(buildOccasions(lectureRules));
+         List<Occasion> exerciseOccasion = new ArrayList<Occasion>(buildOccasions(exerciseRules));
+         List<Occasion> homeworkOccasion = new ArrayList<Occasion>(buildOccasions(homeworkRules));
+
+         return new Subject(name, lectureOccasion, exerciseOccasion, homeworkOccasion);
+
+
+     }
+
+     private List<Occasion> buildOccasions(List<EventRule> rule){
+         List<Occasion> occ = new ArrayList<>();
+         for(EventRule er: rule){
+             Date start;
+             Date end;
+             Calendar startCal = Calendar.getInstance();
+             Calendar endCal = Calendar.getInstance();
+
+             if (!er.repeating){
+                 startCal.setTime(er.startDate.getTime());
+                 startCal.setTime(er.startTime.getTime());
+                 start=startCal.getTime();
+                 endCal.setTime(er.endDate.getTime());
+                 endCal.setTime(er.endTime.getTime());
+                 end=endCal.getTime();
+                 occ.add(new Occasion(start, end, false));
+             }
+             else{
+                 if(er.increment==1){
+                     Calendar iterateDate = er.startDate;
+                     while(er.endDate.after(iterateDate)){
+                         if(iterateDate.DAY_OF_WEEK>1 && iterateDate.DAY_OF_WEEK<7){
+                             startCal.setTime(iterateDate.getTime());
+                             startCal.setTime(er.startTime.getTime());
+                             start=startCal.getTime();
+                             endCal.setTime(iterateDate.getTime());
+                             endCal.setTime(er.endTime.getTime());
+                             end=endCal.getTime();
+                             occ.add(new Occasion(start, end, false));
+                         }
+                         iterateDate.set(Calendar.DATE, iterateDate.DATE+1);
+                     }
+                 }
+                 else if(er.increment==7){
+                     Calendar iterateDate = er.startDate;
+                     while(er.endDate.after(iterateDate)){
+                         if(iterateDate.DAY_OF_WEEK==er.dayOfWeek){
+                             startCal.setTime(iterateDate.getTime());
+                             startCal.setTime(er.startTime.getTime());
+                             start=startCal.getTime();
+                             endCal.setTime(iterateDate.getTime());
+                             endCal.setTime(er.endTime.getTime());
+                             end=endCal.getTime();
+                             occ.add(new Occasion(start, end, false));
+                         }
+                         iterateDate.set(Calendar.DATE, iterateDate.DATE+1);
+                     }
+                 }
+                 else if(er.increment==14){
+                     Calendar iterateDate = er.startDate;
+                     while(er.endDate.after(iterateDate)){
+                         if(iterateDate.DAY_OF_WEEK==er.dayOfWeek && iterateDate.WEEK_OF_YEAR%2==(er.oddOrEven-1)){
+                             startCal.setTime(iterateDate.getTime());
+                             startCal.setTime(er.startTime.getTime());
+                             start=startCal.getTime();
+                             endCal.setTime(iterateDate.getTime());
+                             endCal.setTime(er.endTime.getTime());
+                             end=endCal.getTime();
+                             occ.add(new Occasion(start, end, false));
+                         }
+                         iterateDate.set(Calendar.DATE, iterateDate.DATE+1);
+                     }
+                 }
+
+
+             }
+
+         }
+         return occ;
      }
 }

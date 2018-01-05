@@ -35,7 +35,7 @@
                     android:textSize="30dp" />
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/editText_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/textView2"
@@ -91,7 +91,23 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"></LinearLayout>
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/add_btnDiscard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Discard" />
+
+                <Button
+                    android:id="@+id/add_btnAccept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Accept" />
+            </LinearLayout>
 
 
         </LinearLayout>
