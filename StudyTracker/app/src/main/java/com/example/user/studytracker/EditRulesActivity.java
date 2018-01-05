@@ -38,6 +38,7 @@ public class EditRulesActivity extends AppCompatActivity{
     private EditText dayOfWeekEdit;
     private EditText startTimeEdtit;
     private EditText endTimeEdit;
+    private EditText oddOrEvenEdit;
 
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
@@ -60,6 +61,7 @@ public class EditRulesActivity extends AppCompatActivity{
     Intent receivedIntent;
 
     final String[] weekDays = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    final String[] oddOrEvenString = new String [] {"odd", "even"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,9 @@ public class EditRulesActivity extends AppCompatActivity{
 
         dayOfWeekEdit = findViewById(R.id.edit_dayOfWeek);
         dayOfWeekEdit.setInputType(InputType.TYPE_NULL);
+
+        oddOrEvenEdit = findViewById(R.id.edit_oddOrEven);
+        oddOrEvenEdit.setInputType(InputType.TYPE_NULL);
 
         startTimeEdtit = findViewById(R.id.edit_startTime);
         startTimeEdtit.setInputType(InputType.TYPE_NULL);
@@ -126,6 +131,12 @@ public class EditRulesActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 dayOfWeekDialog();
+            }
+        });
+        oddOrEvenEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setOddOrEvenDialog();
             }
         });
 
@@ -219,9 +230,40 @@ public class EditRulesActivity extends AppCompatActivity{
 
     }
 
+    private void setOddOrEvenDialog(){
+        final Dialog d = new Dialog(this);
+        d.setTitle("Choose odd or even week");
+        d.setContentView(R.layout.dialog_numberpicker);
+        Button b1 = (Button) d.findViewById(R.id.button1);
+        Button b2 = (Button) d.findViewById(R.id.button2);
+        final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
+        np.setMaxValue(2);
+        np.setMinValue(1);
+        np.setDisplayedValues(oddOrEvenString);
+        np.setWrapSelectorWheel(false);
+        b1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                oddOrEvenEdit.setText(oddOrEvenString[np.getValue()-1]);
+                d.dismiss();
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        d.show();
+
+    }
+
     private void setRadioListeners(){
         final LinearLayout linear_radio = findViewById(R.id.linear_Radio_repeatRate);
         final LinearLayout linear_dayOfWeek = findViewById(R.id.linear_dayOfWeek);
+        final LinearLayout linear_oddOrEven = findViewById(R.id.linear_oddOrEven);
 
         radioRegularly.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,6 +274,9 @@ public class EditRulesActivity extends AppCompatActivity{
                 if(radioBiWeekly.isChecked() || radioWeekly.isChecked()){
                     if(linear_dayOfWeek.getVisibility()!=View.VISIBLE){
                         linear_dayOfWeek.setVisibility(View.VISIBLE);
+                    }
+                    if(linear_oddOrEven.getVisibility()!=View.VISIBLE){
+                        linear_oddOrEven.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -246,6 +291,9 @@ public class EditRulesActivity extends AppCompatActivity{
                 if(linear_dayOfWeek.getVisibility()== View.VISIBLE){
                     linear_dayOfWeek.setVisibility(View.INVISIBLE);
                 }
+                if(linear_oddOrEven.getVisibility()==View.VISIBLE){
+                    linear_oddOrEven.setVisibility(View.INVISIBLE);
+                }
             }
         });
         radioOneTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -257,6 +305,9 @@ public class EditRulesActivity extends AppCompatActivity{
                 if(linear_dayOfWeek.getVisibility()== View.VISIBLE){
                     linear_dayOfWeek.setVisibility(View.INVISIBLE);
                 }
+                if(linear_oddOrEven.getVisibility()==View.VISIBLE){
+                    linear_oddOrEven.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -266,6 +317,9 @@ public class EditRulesActivity extends AppCompatActivity{
                 if(linear_dayOfWeek.getVisibility()== View.VISIBLE){
                     linear_dayOfWeek.setVisibility(View.INVISIBLE);
                 }
+                if(linear_oddOrEven.getVisibility()==View.VISIBLE){
+                    linear_oddOrEven.setVisibility(View.INVISIBLE);
+                }
             }
         });
         radioDaily.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -273,6 +327,9 @@ public class EditRulesActivity extends AppCompatActivity{
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(linear_dayOfWeek.getVisibility()== View.VISIBLE){
                     linear_dayOfWeek.setVisibility(View.INVISIBLE);
+                }
+                if(linear_oddOrEven.getVisibility()==View.VISIBLE){
+                    linear_oddOrEven.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -283,6 +340,9 @@ public class EditRulesActivity extends AppCompatActivity{
                 if(linear_dayOfWeek.getVisibility()!=View.VISIBLE){
                     linear_dayOfWeek.setVisibility(View.VISIBLE);
                 }
+                if(linear_oddOrEven.getVisibility()==View.VISIBLE){
+                    linear_oddOrEven.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -291,6 +351,9 @@ public class EditRulesActivity extends AppCompatActivity{
             public void onClick(View view) {
                 if(linear_dayOfWeek.getVisibility()!=View.VISIBLE){
                     linear_dayOfWeek.setVisibility(View.VISIBLE);
+                }
+                if(linear_oddOrEven.getVisibility()!=View.VISIBLE){
+                    linear_oddOrEven.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -428,6 +491,7 @@ public class EditRulesActivity extends AppCompatActivity{
         toDate.setTime(dateFormatter.parse(toDateEdit.getText().toString()));
         int type = eventType;
         int inc;
+        int oddOrEvenNumber=0;
         if(radioOneTime.isChecked()){
             inc=0;
         }
@@ -440,13 +504,19 @@ public class EditRulesActivity extends AppCompatActivity{
             }
             else{
                 inc=14;
+                for (int i = 0; i<oddOrEvenString.length; i++){
+                    if(String.valueOf(oddOrEvenEdit.getText())==oddOrEvenString[i]){
+                        oddOrEvenNumber=i+1;
+                        break;
+                    }
+                }
             }
         }
         int dayOfWeek=0;
         if(radioRegularly.isChecked() && (radioWeekly.isChecked() || radioBiWeekly.isChecked())){
             for (int i = 0; i<weekDays.length; i++){
                 if(String.valueOf(dayOfWeekEdit.getText())==weekDays[i]){
-                    dayOfWeek=i;
+                    dayOfWeek=i+1;
                     break;
                 }
             }
@@ -456,7 +526,7 @@ public class EditRulesActivity extends AppCompatActivity{
         Calendar toTime = getInstance();
         toTime.setTime(timeFormatter.parse(endTimeEdit.getText().toString()));
 
-        EventRule eventForIntent = new EventRule(repeat, fromDate, toDate, type, inc, dayOfWeek, fromTime, toTime);
+        EventRule eventForIntent = new EventRule(repeat, fromDate, toDate, type, inc, dayOfWeek, oddOrEvenNumber, fromTime, toTime);
 
         Intent intent = new Intent(this, AddActivity.class);
         intent.putExtra("eventRule", eventForIntent);
@@ -482,7 +552,10 @@ public class EditRulesActivity extends AppCompatActivity{
             toDateEdit.setText(dateFormatter.format(eventRuleIntent.endDate.getTime()));
             if(eventRuleIntent.increment==1)radioDaily.setChecked(true);
             if(eventRuleIntent.increment==7)radioWeekly.setChecked(true);
-            if(eventRuleIntent.increment==14)radioBiWeekly.setChecked(true);
+            if(eventRuleIntent.increment==14) {
+                radioBiWeekly.setChecked(true);
+                oddOrEvenEdit.setText(oddOrEvenString[eventRuleIntent.oddOrEven-1]);
+            }
             if(eventRuleIntent.dayOfWeek>0){
                 dayOfWeekEdit.setText(weekDays[eventRuleIntent.dayOfWeek-1]);
             }

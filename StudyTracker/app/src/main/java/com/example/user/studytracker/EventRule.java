@@ -14,17 +14,19 @@ public class EventRule implements Serializable {
     int type;
     int increment;
     int dayOfWeek;
+    int oddOrEven;
     Calendar startTime;
     Calendar endTime;
 
     public EventRule(boolean rep, Calendar startD, Calendar endD, int type, int inc, int dayOfWeek,
-                     Calendar startTime, Calendar endTime){
+                     int oddOreven, Calendar startTime, Calendar endTime){
         this.repeating = rep;
         this.startDate = startD;
         this.endDate = endD;
         this.type = type;
         this.increment = inc;
         this.dayOfWeek = dayOfWeek;
+        this.oddOrEven = oddOreven;
         this.startTime = startTime;
         this.endTime = endTime;
     }

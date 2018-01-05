@@ -33,6 +33,7 @@
     <string name="txt_missingEntry">Please make sure to fill in all information first.</string>
     <string name="txt_fromAfterTo">Please make sure your start date is before you end date.</string>
     <string name="txt_startAfterEnd">Please make sure your start date is before your end date.</string>
+    <string name="txt_oops">This message should never show up. I suggests restarting the app and paying it goes away.</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

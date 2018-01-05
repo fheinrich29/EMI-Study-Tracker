@@ -14,9 +14,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
  public class AddActivity extends AppCompatActivity {
 
@@ -32,8 +37,8 @@ import java.util.List;
 
         Calendar cal = Calendar.getInstance();
         //TODO: LÖSCHEN!!
-        EventRule test = new EventRule(true, cal, cal, 1, 1, 5, cal, cal);
-        tes2 = new EventRule(true, cal, cal, 1, 7, 5, cal, cal);
+        EventRule test = new EventRule(true, cal, cal, 1, 1, 5,0, cal, cal);
+        tes2 = new EventRule(true, cal, cal, 1, 7, 5,0, cal, cal);
         lectureRules.add(test);
         lectureRules.add(tes2);
 
@@ -93,7 +98,7 @@ import java.util.List;
                  }
              });
              TextView text = new TextView(this);
-             text.setText("this gets repeated every"+lectureRules.get(i).increment+" days."); //TODO: change to display rule properly
+             text.setText(displayTextForRules(text, lectureRules.get(i))); //TODO: change to display rule properly
              childlinLec.addView(btnEdit);
              childlinLec.addView(text);
          }
@@ -131,7 +136,7 @@ import java.util.List;
                  }
              });
              TextView text = new TextView(this);
-             text.setText("this gets repeated every"+lectureRules.get(i).increment+" days."); //TODO: change to display rule properly
+             text.setText(displayTextForRules(text, exerciseRules.get(i))); //TODO: change to display rule properly
              childInexer.addView(btnEdit);
              childInexer.addView(text);
          }
@@ -170,7 +175,7 @@ import java.util.List;
                  }
              });
              TextView text = new TextView(this);
-             text.setText("this gets repeated every"+lectureRules.get(i).increment+" days."); //TODO: change to display rule properly
+             text.setText(displayTextForRules(text, homeworkRules.get(i))); //TODO: change to display rule properly
              childLinHomework.addView(btnEdit);
              childLinHomework.addView(text);
          }
@@ -186,5 +191,36 @@ import java.util.List;
          });
          linHomework.addView(btnNewHomework, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+     }
+
+     private String displayTextForRules(TextView v, EventRule rule){
+         Calendar startDate = rule.startDate;
+         Calendar endDate = rule.endDate;
+         Calendar startTime = rule.startTime;
+         Calendar endTime = rule.endTime;
+         int dayOfWeek = rule.dayOfWeek;
+         int oddOrEven = rule.oddOrEven;
+         final String[] weekDays = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+         final String[] oddOrEvenString = new String [] {"odd", "even"};
+
+         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
+         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.GERMANY);
+
+
+         if(!rule.repeating){
+             return "From "+dateFormat.format(startDate)+" at "+timeFormat.format(startTime)+" \n"
+                     +"To "+dateFormat.format(endDate)+" at "+timeFormat.format(endTime);
+         }
+         else{
+             String repeat;
+             switch (rule.increment){
+                 case 1: repeat = "daily "; break;
+                 case 7: repeat = "every "+weekDays[dayOfWeek-1]; break;
+                 case 14: repeat = "every "+oddOrEvenString[oddOrEven-1]+weekDays[dayOfWeek-1]; break;
+                 default: repeat = getString(R.string.txt_oops);
+             }
+             return repeat+" "+timeFormat.format(startTime.getTime())+ " - "+timeFormat.format(endTime.getTime())+" \n"+
+                     "Start: "+dateFormat.format(startDate.getTime())+", End: "+dateFormat.format(endDate.getTime());
+         }
      }
 }
