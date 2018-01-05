@@ -70,7 +70,6 @@ import java.util.Locale;
             if(receivedIntent.getIntExtra("type", 0)==3){
                 homeworkRules.add(ruleFromIntent);
             }
-            Toast.makeText(this, receivedIntent.getSerializableExtra("eventRule").toString(), Toast.LENGTH_SHORT).show();
         }
 
         setContentView(R.layout.activity_add);
@@ -268,21 +267,23 @@ import java.util.Locale;
                              .show();
                  }
                  else {
-                     Intent intent = new Intent(view.getContext(), MainActivity.class);
-                     intent.putExtra("subject", buildSubject());
-                     startActivity(intent);
+                     buildSubject();
                  }
              }
          });
      }
 
-     private Subject buildSubject(){
+     private void buildSubject(){
          String name = editName.getText().toString();
          List<Occasion> lectureOccasion = new ArrayList<Occasion>(buildOccasions(lectureRules));
          List<Occasion> exerciseOccasion = new ArrayList<Occasion>(buildOccasions(exerciseRules));
          List<Occasion> homeworkOccasion = new ArrayList<Occasion>(buildOccasions(homeworkRules));
 
-         return new Subject(name, lectureOccasion, exerciseOccasion, homeworkOccasion);
+         Subject forIntent = new Subject(name, lectureOccasion, exerciseOccasion, homeworkOccasion);
+         Intent intent = new Intent(this, MainActivity.class);
+         intent.putExtra("subject", forIntent);
+         startActivity(intent);
+
 
 
      }
@@ -307,8 +308,9 @@ import java.util.Locale;
              else{
                  if(er.increment==1){
                      Calendar iterateDate = er.startDate;
+                     iterateDate.setLenient(true);
                      while(er.endDate.after(iterateDate)){
-                         if(iterateDate.DAY_OF_WEEK>1 && iterateDate.DAY_OF_WEEK<7){
+                         if(iterateDate.get(iterateDate.DAY_OF_WEEK)>1 && iterateDate.get(iterateDate.DAY_OF_WEEK)<7){
                              startCal.setTime(iterateDate.getTime());
                              startCal.setTime(er.startTime.getTime());
                              start=startCal.getTime();
@@ -317,13 +319,14 @@ import java.util.Locale;
                              end=endCal.getTime();
                              occ.add(new Occasion(start, end, false));
                          }
-                         iterateDate.set(Calendar.DATE, iterateDate.DATE+1);
+                         iterateDate.add(iterateDate.DATE, 1);
                      }
                  }
                  else if(er.increment==7){
                      Calendar iterateDate = er.startDate;
+                     iterateDate.setLenient(true);
                      while(er.endDate.after(iterateDate)){
-                         if(iterateDate.DAY_OF_WEEK==er.dayOfWeek){
+                         if(iterateDate.get(iterateDate.DAY_OF_WEEK)==er.dayOfWeek){
                              startCal.setTime(iterateDate.getTime());
                              startCal.setTime(er.startTime.getTime());
                              start=startCal.getTime();
@@ -332,13 +335,14 @@ import java.util.Locale;
                              end=endCal.getTime();
                              occ.add(new Occasion(start, end, false));
                          }
-                         iterateDate.set(Calendar.DATE, iterateDate.DATE+1);
+                         iterateDate.add(iterateDate.DATE, 1);
                      }
                  }
                  else if(er.increment==14){
                      Calendar iterateDate = er.startDate;
+                     iterateDate.setLenient(true);
                      while(er.endDate.after(iterateDate)){
-                         if(iterateDate.DAY_OF_WEEK==er.dayOfWeek && iterateDate.WEEK_OF_YEAR%2==(er.oddOrEven-1)){
+                         if(iterateDate.get(iterateDate.DAY_OF_WEEK)==er.dayOfWeek && iterateDate.get(iterateDate.WEEK_OF_YEAR)%2==(er.oddOrEven-1)){
                              startCal.setTime(iterateDate.getTime());
                              startCal.setTime(er.startTime.getTime());
                              start=startCal.getTime();
@@ -347,7 +351,7 @@ import java.util.Locale;
                              end=endCal.getTime();
                              occ.add(new Occasion(start, end, false));
                          }
-                         iterateDate.set(Calendar.DATE, iterateDate.DATE+1);
+                         iterateDate.add(iterateDate.DATE, 1);
                      }
                  }
 

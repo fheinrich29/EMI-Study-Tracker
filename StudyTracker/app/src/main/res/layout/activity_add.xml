@@ -40,6 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/textView2"
                     android:ems="10"
+                    android:focusedByDefault="false"
                     android:inputType="textPersonName"
                     android:text="add name here" />
 

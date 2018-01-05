@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
         if(receivedIntent.hasExtra("subject")){
 
         Subject subj = (Subject) receivedIntent.getSerializableExtra("subject");
-        Toast.makeText(this, subj.toString(), Toast.LENGTH_SHORT);
+        Toast.makeText(this, subj.toString(), Toast.LENGTH_SHORT).show();
         }
 
 
