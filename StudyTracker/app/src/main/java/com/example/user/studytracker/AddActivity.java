@@ -3,21 +3,16 @@
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,17 +42,15 @@ import java.util.Locale;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
+        // for testing-purposes only TODO: DELETE!!!
         Calendar cal = Calendar.getInstance();
-        //TODO: LÖSCHEN!!
         EventRule test = new EventRule(true, cal, cal, 1, 1, 5,0, cal, cal);
         tes2 = new EventRule(true, cal, cal, 1, 7, 5,0, cal, cal);
         lectureRules.add(test);
         lectureRules.add(tes2);
 
 
+        //get Intent that called tis Activity + check for extra
         Intent receivedIntent = getIntent();
         if(receivedIntent.getSerializableExtra("eventRule")!=null && receivedIntent.getIntExtra("type", 0)>0) {
             EventRule ruleFromIntent = (EventRule) receivedIntent.getSerializableExtra("eventRule");
@@ -72,8 +65,11 @@ import java.util.Locale;
             }
         }
 
+        //build layout
         setContentView(R.layout.activity_add);
         buildContentView();
+
+        //set logic for discard and accept buttons
         setButtonLogic();
 
     }
@@ -84,126 +80,66 @@ import java.util.Locale;
          return true;
      }
 
+     /**
+      * calls buildLinearLayout for each type of event
+      */
      public void buildContentView(){
-
-        //change layout of lectures
-         LinearLayout linLecture = findViewById(R.id.linLayoutLecture);
-         for (int i=0; i<lectureRules.size(); i++){
-             LinearLayout childlinLec = new LinearLayout(this);
-             childlinLec.setOrientation(LinearLayout.HORIZONTAL);
-             LinearLayout.LayoutParams cllparam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-             childlinLec.setLayoutParams(cllparam);
-             linLecture.addView(childlinLec);
-             final Button btnEdit = new Button(this);
-             btnEdit.setText("edit"); //TODO: change to display rule properly
-             btnEdit.setTag(i);
-             btnEdit.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     Intent intent= new Intent(getApplicationContext(), EditRulesActivity.class);
-                     intent.putExtra("rule", lectureRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
-                     intent.putExtra("number", 1);
-                     homeworkRules.remove(Integer.valueOf(String.valueOf(btnEdit.getTag())));
-                     startActivity(intent);
-                 }
-             });
-             TextView text = new TextView(this);
-             text.setText(displayTextForRules(text, lectureRules.get(i))); //TODO: change to display rule properly
-             childlinLec.addView(btnEdit);
-             childlinLec.addView(text);
-         }
-         Button btnNewLecture = new Button(this);
-         btnNewLecture.setText("add new Rule"); //TODO: change to display rule properly
-         btnNewLecture.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(getApplicationContext(), EditRulesActivity.class);
-                 intent.putExtra("number", 1);
-                 startActivity(intent);
-             }
-         });
-         linLecture.addView(btnNewLecture, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-         //change layout of exercises
-         LinearLayout linExercise = findViewById(R.id.linLayoutExercise);
-         for (int i=0; i<exerciseRules.size(); i++){
-             LinearLayout childInexer = new LinearLayout(this);
-             childInexer.setOrientation(LinearLayout.HORIZONTAL);
-             LinearLayout.LayoutParams cllparam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-             childInexer.setLayoutParams(cllparam);
-             linExercise.addView(childInexer);
-             final Button btnEdit = new Button(this);
-             btnEdit.setTag(i);
-             btnEdit.setText("edit"); //TODO: change to display rule properly
-             btnEdit.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     Intent intent= new Intent(getApplicationContext(), EditRulesActivity.class);
-                     intent.putExtra("rule", exerciseRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
-                     intent.putExtra("number", 2);
-                     exerciseRules.remove(Integer.valueOf(String.valueOf(btnEdit.getTag())));
-                     startActivity(intent);
-                 }
-             });
-             TextView text = new TextView(this);
-             text.setText(displayTextForRules(text, exerciseRules.get(i))); //TODO: change to display rule properly
-             childInexer.addView(btnEdit);
-             childInexer.addView(text);
-         }
-         Button btnNewExercise = new Button(this);
-         btnNewExercise.setText("add new Rule"); //TODO: change to display rule properly
-         btnNewExercise.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(getApplicationContext(), EditRulesActivity.class);
-                 intent.putExtra("number", 2);
-                 startActivity(intent);
-             }
-         });
-         linExercise.addView(btnNewExercise, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-
-         //change layout of homework
-         LinearLayout linHomework = findViewById(R.id.linLayoutHomework);
-         for (int i=0; i<homeworkRules.size(); i++){
-             LinearLayout childLinHomework = new LinearLayout(this);
-             childLinHomework.setOrientation(LinearLayout.HORIZONTAL);
-             LinearLayout.LayoutParams cllparam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-             childLinHomework.setLayoutParams(cllparam);
-             linHomework.addView(childLinHomework);
-             final Button btnEdit = new Button(this);
-             btnEdit.setTag(i);
-             btnEdit.setText("edit"); //TODO: change to display rule properly
-             btnEdit.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     Intent intent= new Intent(getApplicationContext(), EditRulesActivity.class);
-                     intent.putExtra("rule", homeworkRules.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
-                     intent.putExtra("number", 3);
-                     homeworkRules.remove(Integer.valueOf(String.valueOf(btnEdit.getTag())));
-                     startActivity(intent);
-                 }
-             });
-             TextView text = new TextView(this);
-             text.setText(displayTextForRules(text, homeworkRules.get(i))); //TODO: change to display rule properly
-             childLinHomework.addView(btnEdit);
-             childLinHomework.addView(text);
-         }
-         Button btnNewHomework = new Button(this);
-         btnNewHomework.setText("add new Rule"); //TODO: change to display rule properly
-         btnNewHomework.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(getApplicationContext(), EditRulesActivity.class);
-                 startActivity(intent);
-                 intent.putExtra("number", 3);
-             }
-         });
-         linHomework.addView(btnNewHomework, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
+         buildLinearLayout(lectureRules, 1, (LinearLayout) findViewById(R.id.linLayoutLecture));
+         buildLinearLayout(exerciseRules, 2, (LinearLayout) findViewById(R.id.linLayoutExercise));
+         buildLinearLayout(homeworkRules, 3, (LinearLayout) findViewById(R.id.linLayoutHomework));
      }
 
-     private String displayTextForRules(TextView v, EventRule rule){
+     /**
+      * Builds an edit button and a TextView with description for every rule that has been added
+      * @param eR a list of EventRules that the function iterates over
+      * @param whatType 1->lectureRule
+      *                 2->exerciseRule
+      *                 3->homeworkRule
+      * @param linLay the LinearLayout in which the TextViews and Buttons will be added
+      */
+     private void buildLinearLayout(final List<EventRule> eR, final int whatType, LinearLayout linLay){
+         final int type = whatType;
+         final Intent intent = new Intent(getApplicationContext(), EditRulesActivity.class);
+         intent.putExtra("number", type);
+         for (int i=0; i<eR.size(); i++){
+             LinearLayout childLinLay = new LinearLayout(this);
+             childLinLay.setOrientation(LinearLayout.HORIZONTAL);
+             LinearLayout.LayoutParams cllparam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+             childLinLay.setLayoutParams(cllparam);
+             linLay.addView(childLinLay);
+             final Button btnEdit = new Button(this);
+             btnEdit.setTag(i);
+             btnEdit.setText(getString(R.string.btn_edit));
+             btnEdit.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     intent.putExtra("rule", eR.get(Integer.valueOf(String.valueOf( btnEdit.getTag()))));
+                     eR.remove(Integer.valueOf(String.valueOf(btnEdit.getTag())));
+                     startActivity(intent);
+                 }
+             });
+             TextView text = new TextView(this);
+             text.setText(displayTextForRules(eR.get(i)));
+             childLinLay.addView(btnEdit);
+             childLinLay.addView(text);
+         }
+         Button btnNewRule = new Button(this);
+         btnNewRule.setText(getString(R.string.btn_new));
+         btnNewRule.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 startActivity(intent);
+             }
+         });
+         linLay.addView(btnNewRule, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+     }
+
+     /**
+      * builds the String that will be used as description of an EventRule
+      * @param rule the rule that is to be displayed
+      * @return the String that will be used to represent the EventRule
+      */
+     private String displayTextForRules(EventRule rule){
          Calendar startDate = rule.startDate;
          Calendar endDate = rule.endDate;
          Calendar startTime = rule.startTime;
@@ -217,8 +153,8 @@ import java.util.Locale;
 
 
          if(!rule.repeating){
-             return "From "+dateFormat.format(startDate)+" at "+timeFormat.format(startTime)+" \n"
-                     +"To "+dateFormat.format(endDate)+" at "+timeFormat.format(endTime);
+             return "From "+dateFormat.format(startDate.getTime())+" at "+timeFormat.format(startTime.getTime())+" \n" +
+                     "To "+dateFormat.format(endDate.getTime())+" at "+timeFormat.format(endTime.getTime());
          }
          else{
              String repeat;
@@ -232,10 +168,16 @@ import java.util.Locale;
                      "Start: "+dateFormat.format(startDate.getTime())+", End: "+dateFormat.format(endDate.getTime());
          }
      }
+
+     /**
+      * defines the behaviours of the Discard and Accept buttons.
+      */
      private void setButtonLogic(){
          btnDiscard = findViewById(R.id.add_btnDiscard);
          btnAccept = findViewById(R.id.add_btnAccept);
 
+
+         //goes back to MainActivity without saving anything
          btnDiscard.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
@@ -244,6 +186,7 @@ import java.util.Locale;
              }
          });
 
+         //checks whether name is empty and builds the subject otherwise.
          btnAccept.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
@@ -273,6 +216,10 @@ import java.util.Locale;
          });
      }
 
+     /**
+      * creates a new Subject using all EventRules that have been added.
+      */
+     //TODO: sort list before starting new activity
      private void buildSubject(){
          String name = editName.getText().toString();
          List<Occasion> lectureOccasion = new ArrayList<Occasion>(buildOccasions(lectureRules));
@@ -288,8 +235,14 @@ import java.util.Locale;
 
      }
 
+     /**
+      * function that takes in a list of rules and converts it into a list of occasions
+      * @param rule the list of rules that is used to create the list of occasions
+      * @return the list of occasions
+      */
      private List<Occasion> buildOccasions(List<EventRule> rule){
          List<Occasion> occ = new ArrayList<>();
+         //iterates over each rule
          for(EventRule er: rule){
              Date start;
              Date end;

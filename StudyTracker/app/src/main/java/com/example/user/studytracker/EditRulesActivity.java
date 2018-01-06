@@ -68,7 +68,12 @@ public class EditRulesActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_rules);
         receivedIntent = getIntent();
-
+        if(receivedIntent.hasExtra("number")) {
+            Toast.makeText(EditRulesActivity.this, String.valueOf(receivedIntent.getIntExtra("number", 0)), Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "no number :(", Toast.LENGTH_SHORT).show();
+        }
 
         Toolbar myToolbar = findViewById(R.id.toolbar_editRules);
         setSupportActionBar(myToolbar);
