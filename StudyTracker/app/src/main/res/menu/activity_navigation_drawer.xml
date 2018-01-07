@@ -8,20 +8,16 @@
             <item
                 android:id="@+id/nav_new"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="neues Fach hinzufügen" />
+                android:title="@string/nav_new" />
         </menu>
     </item>
 
+
+    <!-- TODO: delete and replace with java code (to enable dynamic length) -->
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_all"
             android:title="alle Fächer" />
-        <item
-            android:id="@+id/nav_emi"
-            android:title="EMI" />
-        <item
-            android:id="@+id/nav_aud"
-            android:title="AuD" />
 
     </group>
 
