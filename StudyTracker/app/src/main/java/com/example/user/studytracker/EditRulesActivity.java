@@ -68,12 +68,6 @@ public class EditRulesActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_rules);
         receivedIntent = getIntent();
-        if(receivedIntent.hasExtra("number")) {
-            Toast.makeText(EditRulesActivity.this, String.valueOf(receivedIntent.getIntExtra("number", 0)), Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(this, "no number :(", Toast.LENGTH_SHORT).show();
-        }
 
         Toolbar myToolbar = findViewById(R.id.toolbar_editRules);
         setSupportActionBar(myToolbar);
@@ -113,11 +107,13 @@ public class EditRulesActivity extends AppCompatActivity{
         setEdittextData();
         setRadioListeners();
         setButtonLogic();
-        setEditTextIfRuleIntent();
+
 
     }
 
-
+    /**
+     * creates onClickListeners for each EditText (each containing the corresponding dialog)
+     */
     private void setEdittextData() {
         fromDateEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,9 +198,12 @@ public class EditRulesActivity extends AppCompatActivity{
 
         },newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), true);
 
-
+        setEditTextIfRuleIntent();
     }
 
+    /**
+     * creates dialog that allows you to choose the day of the week
+     */
     private void dayOfWeekDialog(){
         final Dialog d = new Dialog(this);
         d.setTitle("Choose day of week");
@@ -235,6 +234,9 @@ public class EditRulesActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * creates the Dialog that allows you to choose between odd and even weeks
+     */
     private void setOddOrEvenDialog(){
         final Dialog d = new Dialog(this);
         d.setTitle("Choose odd or even week");
@@ -265,6 +267,9 @@ public class EditRulesActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * hides or displays parts of the layout depending on which RadioListeners are ticked
+     */
     private void setRadioListeners(){
         final LinearLayout linear_radio = findViewById(R.id.linear_Radio_repeatRate);
         final LinearLayout linear_dayOfWeek = findViewById(R.id.linear_dayOfWeek);
@@ -273,16 +278,12 @@ public class EditRulesActivity extends AppCompatActivity{
         radioRegularly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (linear_radio.getVisibility()!= View.VISIBLE){
-                    linear_radio.setVisibility(View.VISIBLE);
-                }
+                linear_radio.setVisibility(View.VISIBLE);
                 if(radioBiWeekly.isChecked() || radioWeekly.isChecked()){
-                    if(linear_dayOfWeek.getVisibility()!=View.VISIBLE){
-                        linear_dayOfWeek.setVisibility(View.VISIBLE);
-                    }
-                    if(linear_oddOrEven.getVisibility()!=View.VISIBLE){
-                        linear_oddOrEven.setVisibility(View.VISIBLE);
-                    }
+                    linear_dayOfWeek.setVisibility(View.VISIBLE);
+                }
+                if(radioBiWeekly.isChecked()){
+                    linear_oddOrEven.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -290,80 +291,40 @@ public class EditRulesActivity extends AppCompatActivity{
         radioOneTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(linear_radio.getVisibility()==View.VISIBLE){
-                    linear_radio.setVisibility(View.INVISIBLE);
-                }
-                if(linear_dayOfWeek.getVisibility()== View.VISIBLE){
-                    linear_dayOfWeek.setVisibility(View.INVISIBLE);
-                }
-                if(linear_oddOrEven.getVisibility()==View.VISIBLE){
-                    linear_oddOrEven.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-        radioOneTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(linear_radio.getVisibility()==View.VISIBLE){
-                    linear_radio.setVisibility(View.INVISIBLE);
-                }
-                if(linear_dayOfWeek.getVisibility()== View.VISIBLE){
-                    linear_dayOfWeek.setVisibility(View.INVISIBLE);
-                }
-                if(linear_oddOrEven.getVisibility()==View.VISIBLE){
-                    linear_oddOrEven.setVisibility(View.INVISIBLE);
-                }
+                linear_radio.setVisibility(View.INVISIBLE);
+                linear_dayOfWeek.setVisibility(View.INVISIBLE);
+                linear_oddOrEven.setVisibility(View.INVISIBLE);
             }
         });
 
         radioDaily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(linear_dayOfWeek.getVisibility()== View.VISIBLE){
-                    linear_dayOfWeek.setVisibility(View.INVISIBLE);
-                }
-                if(linear_oddOrEven.getVisibility()==View.VISIBLE){
-                    linear_oddOrEven.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-        radioDaily.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(linear_dayOfWeek.getVisibility()== View.VISIBLE){
-                    linear_dayOfWeek.setVisibility(View.INVISIBLE);
-                }
-                if(linear_oddOrEven.getVisibility()==View.VISIBLE){
-                    linear_oddOrEven.setVisibility(View.INVISIBLE);
-                }
+                linear_dayOfWeek.setVisibility(View.INVISIBLE);
+                linear_oddOrEven.setVisibility(View.INVISIBLE);
             }
         });
 
         radioWeekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(linear_dayOfWeek.getVisibility()!=View.VISIBLE){
-                    linear_dayOfWeek.setVisibility(View.VISIBLE);
-                }
-                if(linear_oddOrEven.getVisibility()==View.VISIBLE){
-                    linear_oddOrEven.setVisibility(View.INVISIBLE);
-                }
+                linear_dayOfWeek.setVisibility(View.VISIBLE);
+                linear_oddOrEven.setVisibility(View.INVISIBLE);
             }
         });
 
         radioBiWeekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(linear_dayOfWeek.getVisibility()!=View.VISIBLE){
-                    linear_dayOfWeek.setVisibility(View.VISIBLE);
-                }
-                if(linear_oddOrEven.getVisibility()!=View.VISIBLE){
-                    linear_oddOrEven.setVisibility(View.VISIBLE);
-                }
+                linear_dayOfWeek.setVisibility(View.VISIBLE);
+                linear_oddOrEven.setVisibility(View.VISIBLE);
             }
         });
     }
 
+    /**
+     * creates OnClickListeners for Discard and Accept buttons
+     */
     private void setButtonLogic(){
         btnDiscard = findViewById(R.id.btnDiscard);
         btnAccept = findViewById(R.id.btnAccept);
@@ -387,7 +348,8 @@ public class EditRulesActivity extends AppCompatActivity{
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if((!radioOneTime.isChecked() && !radioRegularly.isChecked())
+               //if any information is missing it displays an error dialog
+                if((!radioOneTime.isChecked() && !radioRegularly.isChecked())
                ||isEmpty(fromDateEdit)||isEmpty(toDateEdit)
                ||isEmpty(startTimeEdtit)||isEmpty(endTimeEdit)
                ||(radioRegularly.isChecked()&&(!radioDaily.isChecked()&&!radioWeekly.isChecked()&&!radioBiWeekly.isChecked()))
@@ -409,47 +371,20 @@ public class EditRulesActivity extends AppCompatActivity{
                            .setIcon(android.R.drawable.ic_dialog_alert)
                            .show();
                }
+               //else converts String from EditTexts containing Dates to Calendars
                else{
                    try {
                        calFrom.setTime(sdf.parse(fromDateEdit.getText().toString()));
                    } catch (ParseException e) {
                        e.printStackTrace();
                    }
-                   try {
-                       calTo.setTime(sdf.parse(toDateEdit.getText().toString()));
-                   } catch (ParseException e) {
-                       e.printStackTrace();
-                   }
-               }
-                if (calFrom.after(calTo)) {
-                    AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(EditRulesActivity.this, android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(EditRulesActivity.this);
-                    }
-                    builder.setTitle("Wrong Information")
-                            .setMessage(R.string.txt_fromAfterTo)
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-                else{
                     try {
-                        calStartTime.setTime(sdfHourMinute.parse(startTimeEdtit.getText().toString()));
+                        calTo.setTime(sdf.parse(toDateEdit.getText().toString()));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    try {
-                        calEndTime.setTime(sdfHourMinute.parse(endTimeEdit.getText().toString()));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    if (calStartTime.after(calEndTime)) {
+                    // error if startDate is after endDate
+                    if (calFrom.after(calTo)) {
                         AlertDialog.Builder builder;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             builder = new AlertDialog.Builder(EditRulesActivity.this, android.R.style.Theme_Material_Dialog_Alert);
@@ -457,7 +392,7 @@ public class EditRulesActivity extends AppCompatActivity{
                             builder = new AlertDialog.Builder(EditRulesActivity.this);
                         }
                         builder.setTitle("Wrong Information")
-                                .setMessage(R.string.txt_startAfterEnd)
+                                .setMessage(R.string.txt_fromAfterTo)
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
@@ -466,19 +401,56 @@ public class EditRulesActivity extends AppCompatActivity{
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
                     }
-                    else{
+                    //if no error convert Edittexts containing times to Calendars
+                    else {
+                        try {
+                            calStartTime.setTime(sdfHourMinute.parse(startTimeEdtit.getText().toString()));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            calEndTime.setTime(sdfHourMinute.parse(endTimeEdit.getText().toString()));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        //if startTime after EndTime, throw error dialog
+                        if (calStartTime.after(calEndTime)) {
+                            AlertDialog.Builder builder;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                builder = new AlertDialog.Builder(EditRulesActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                            } else {
+                                builder = new AlertDialog.Builder(EditRulesActivity.this);
+                            }
+                            builder.setTitle("Wrong Information")
+                                    .setMessage(R.string.txt_startAfterEnd)
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+                        //if no errors so far build the rule from the information
+                        else {
                         try {
                             buildRuleForIntent();
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
                     }
+                   }
                 }
 
             }
         });
     }
 
+    /**
+     * checks whether the given Edittext is empty or not.
+     * @param etText the EditTexts that is to be checked
+     * @return returns true if EditTexts is empty, otherwise false
+     */
     private boolean isEmpty(EditText etText) {
         if (etText.getText().toString().trim().length() > 0)
             return false;
@@ -486,9 +458,12 @@ public class EditRulesActivity extends AppCompatActivity{
         return true;
     }
 
+    /**
+     * function that builds the EventRule, adds it to the event and returns to the AddActivity
+     * @throws ParseException this shouldn't happen, but is required for compiling
+     */
     private void buildRuleForIntent() throws ParseException {
         eventType = receivedIntent.getIntExtra("number", 1);
-
         boolean repeat = radioRegularly.isChecked();
         Calendar fromDate = getInstance();
         fromDate.setTime(dateFormatter.parse(fromDateEdit.getText().toString()));
@@ -543,29 +518,48 @@ public class EditRulesActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * checks whether the intent contains an EventRule (meaning coming from an "edit" button)
+     * and if so adds the information in the corresponding pieces of the layout
+     */
     private void setEditTextIfRuleIntent(){
+        final LinearLayout linear_radio = findViewById(R.id.linear_Radio_repeatRate);
+        final LinearLayout linear_dayOfWeek = findViewById(R.id.linear_dayOfWeek);
+        final LinearLayout linear_oddOrEven = findViewById(R.id.linear_oddOrEven);
+
         if(receivedIntent.hasExtra("rule")) {
             eventRuleIntent = (EventRule) receivedIntent.getSerializableExtra("rule");
 
             if(eventRuleIntent.repeating){
                 radioRegularly.setChecked(true);
                 radioOneTime.setChecked(false);
+                if(eventRuleIntent.increment==1){
+                    radioDaily.setChecked(true);
+                    linear_oddOrEven.setVisibility(View.INVISIBLE);
+                    linear_dayOfWeek.setVisibility(View.INVISIBLE);
+                }
+                if(eventRuleIntent.increment==7){
+                    radioWeekly.setChecked(true);
+                    linear_oddOrEven.setVisibility(View.INVISIBLE);
+                }
+                if(eventRuleIntent.increment==14) {
+                    radioBiWeekly.setChecked(true);
+                    oddOrEvenEdit.setText(oddOrEvenString[eventRuleIntent.oddOrEven-1]);
+                }
+                if(eventRuleIntent.dayOfWeek>0){
+                    dayOfWeekEdit.setText(weekDays[eventRuleIntent.dayOfWeek-1]);
+                }
             }
             else{
                 radioRegularly.setChecked(false);
                 radioOneTime.setChecked(true);
+                linear_radio.setVisibility(View.INVISIBLE);
+                linear_oddOrEven.setVisibility(View.INVISIBLE);
+                linear_dayOfWeek.setVisibility(View.INVISIBLE);
+
             }
             fromDateEdit.setText(dateFormatter.format(eventRuleIntent.startDate.getTime()));
             toDateEdit.setText(dateFormatter.format(eventRuleIntent.endDate.getTime()));
-            if(eventRuleIntent.increment==1)radioDaily.setChecked(true);
-            if(eventRuleIntent.increment==7)radioWeekly.setChecked(true);
-            if(eventRuleIntent.increment==14) {
-                radioBiWeekly.setChecked(true);
-                oddOrEvenEdit.setText(oddOrEvenString[eventRuleIntent.oddOrEven-1]);
-            }
-            if(eventRuleIntent.dayOfWeek>0){
-                dayOfWeekEdit.setText(weekDays[eventRuleIntent.dayOfWeek-1]);
-            }
             startTimeEdtit.setText(timeFormatter.format(eventRuleIntent.startTime.getTime()));
             endTimeEdit.setText(timeFormatter.format(eventRuleIntent.endTime.getTime()));
         }

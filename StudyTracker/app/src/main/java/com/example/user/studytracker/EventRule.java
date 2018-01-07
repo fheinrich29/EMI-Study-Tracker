@@ -30,6 +30,8 @@ public class EventRule implements Serializable {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    //for testing purposes only
     public String toString(){
         return "type"+type+" startDate "+startDate;
     }

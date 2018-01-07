@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
-        /*Intent receivedIntent = getIntent();
+        Intent receivedIntent = getIntent();
         if(receivedIntent.hasExtra("subject")){
 
         Subject subj = (Subject) receivedIntent.getSerializableExtra("subject");
         Toast.makeText(this, subj.toString(), Toast.LENGTH_SHORT).show();
-        }*/
+        }
 
 
 

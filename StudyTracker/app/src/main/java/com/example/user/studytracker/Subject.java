@@ -17,7 +17,10 @@ public class Subject  implements Serializable{
         this.dueDate = dueDate;
     }
 
+
+    //for debugging/testing only
     public String toString(){
-        return "name: "+name+" number of occasions"+(lecture.size()+exercise.size()+dueDate.size())+".";
+        return "name: "+name+"\n"+
+                "number of occasions"+(lecture.size()+exercise.size()+dueDate.size())+".";
     }
 }

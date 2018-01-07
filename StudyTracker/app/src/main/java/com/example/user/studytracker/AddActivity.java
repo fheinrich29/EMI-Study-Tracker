@@ -222,9 +222,9 @@ import java.util.Locale;
      //TODO: sort list before starting new activity
      private void buildSubject(){
          String name = editName.getText().toString();
-         List<Occasion> lectureOccasion = new ArrayList<Occasion>(buildOccasions(lectureRules));
-         List<Occasion> exerciseOccasion = new ArrayList<Occasion>(buildOccasions(exerciseRules));
-         List<Occasion> homeworkOccasion = new ArrayList<Occasion>(buildOccasions(homeworkRules));
+         List<Occasion> lectureOccasion = new ArrayList<Occasion>(buildOccasions(lectureRules, "lecture"));
+         List<Occasion> exerciseOccasion = new ArrayList<Occasion>(buildOccasions(exerciseRules, "exercise"));
+         List<Occasion> homeworkOccasion = new ArrayList<Occasion>(buildOccasions(homeworkRules, "homework"));
 
          Subject forIntent = new Subject(name, lectureOccasion, exerciseOccasion, homeworkOccasion);
          Intent intent = new Intent(this, MainActivity.class);
@@ -240,8 +240,9 @@ import java.util.Locale;
       * @param rule the list of rules that is used to create the list of occasions
       * @return the list of occasions
       */
-     private List<Occasion> buildOccasions(List<EventRule> rule){
+     private List<Occasion> buildOccasions(List<EventRule> rule, String defaultName){
          List<Occasion> occ = new ArrayList<>();
+         int iterator = 1;
          //iterates over each rule
          for(EventRule er: rule){
              Date start;
@@ -256,7 +257,8 @@ import java.util.Locale;
                  endCal.setTime(er.endDate.getTime());
                  endCal.setTime(er.endTime.getTime());
                  end=endCal.getTime();
-                 occ.add(new Occasion(start, end, false));
+                 occ.add(new Occasion(defaultName+iterator,start, end, false, false));
+                 iterator++;
              }
              else{
                  if(er.increment==1){
@@ -270,7 +272,7 @@ import java.util.Locale;
                              endCal.setTime(iterateDate.getTime());
                              endCal.setTime(er.endTime.getTime());
                              end=endCal.getTime();
-                             occ.add(new Occasion(start, end, false));
+                             occ.add(new Occasion(defaultName+iterator,start, end, false, false));
                          }
                          iterateDate.add(iterateDate.DATE, 1);
                      }
@@ -286,7 +288,7 @@ import java.util.Locale;
                              endCal.setTime(iterateDate.getTime());
                              endCal.setTime(er.endTime.getTime());
                              end=endCal.getTime();
-                             occ.add(new Occasion(start, end, false));
+                             occ.add(new Occasion(defaultName+iterator,start, end, false, false));
                          }
                          iterateDate.add(iterateDate.DATE, 1);
                      }
@@ -302,7 +304,7 @@ import java.util.Locale;
                              endCal.setTime(iterateDate.getTime());
                              endCal.setTime(er.endTime.getTime());
                              end=endCal.getTime();
-                             occ.add(new Occasion(start, end, false));
+                             occ.add(new Occasion(defaultName+iterator,start, end, false, false));
                          }
                          iterateDate.add(iterateDate.DATE, 1);
                      }
