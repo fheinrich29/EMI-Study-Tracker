@@ -18,23 +18,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar myToolbar;
+    List<Subject> subjectList = new ArrayList<Subject>();
+    String file_subjectArray = " \\subj_array.txt";
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-
-        Intent receivedIntent = getIntent();
-        if(receivedIntent.hasExtra("subject")){
-
-        Subject subj = (Subject) receivedIntent.getSerializableExtra("subject");
-        Toast.makeText(this, subj.toString(), Toast.LENGTH_SHORT).show();
-        }
 
 
 
@@ -52,8 +58,56 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         buildTabs();
+    }
+
+    @Override
+    protected void onStart(){
+        try {
+            File file = new File(getFilesDir() + file_subjectArray);
+            if (file.exists()) {
+                FileInputStream fIS = new FileInputStream(file);
+                ObjectInputStream oIS = new ObjectInputStream(fIS);
+
+                subjectList = (List<Subject>) oIS.readObject();
+            }
+        }
+        catch (Exception ex) {
+            Toast.makeText(this, getString(R.string.txt_oops), Toast.LENGTH_SHORT).show();
+        }
 
 
+
+        Intent receivedIntent = getIntent();
+        if(receivedIntent.hasExtra("subject")){
+            Subject subj = (Subject) receivedIntent.getSerializableExtra("subject");
+            subjectList.add(subj);
+        }
+
+        super.onStart();
+        Toast.makeText(this, String.valueOf(subjectList.size()), Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    protected void onStop() {
+        try {
+            File file = new File(getFilesDir() + file_subjectArray);
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            FileOutputStream fOS = new FileOutputStream(file);
+            ObjectOutputStream oOS = new ObjectOutputStream(fOS);
+            oOS.writeObject(subjectList);
+            oOS.close();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        super.onStop();
     }
 
     @Override
