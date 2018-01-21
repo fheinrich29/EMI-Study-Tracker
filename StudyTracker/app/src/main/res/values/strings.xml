@@ -5,14 +5,14 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="all">Alle Fächer</string>
+    <string name="all">All subjects</string>
     <string name="AuD">AuD</string>
-    <string name="vorlesungen">Vorlesungen</string>
-    <string name="uebungen">Übungen</string>
-    <string name="daten">Daten</string>
-    <string name="bearbeiten">Fach bearbeiten</string>
-    <string name="faelligkeiten">Fälligkeiten</string>
-    <string name="nav_new">Neues Fach anlegen</string>
+    <string name="vorlesungen">lectures</string>
+    <string name="uebungen">Exercises</string>
+    <string name="daten">Data</string>
+    <string name="bearbeiten">edit subject </string>
+    <string name="faelligkeiten">Homework</string>
+    <string name="nav_new">Add new subject</string>
     <string name="ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="addAct_name">Name: </string>
     <string name="addAct_lecture">Lectures: </string>
@@ -31,11 +31,12 @@
     <string name="btn_discard">Discard </string>
     <string name="btn_accept">Save </string>
     <string name="btn_edit">Edit </string>
+    <string name="all_subjects">All subjects </string>
     v<string name="btn_new">Add new Rule </string>
     <string name="txt_missingEntry">Please make sure to fill in all information first.</string>
     <string name="txt_fromAfterTo">Please make sure your start date is before you end date.</string>
     <string name="txt_startAfterEnd">Please make sure your start date is before your end date.</string>
-    <string name="txt_oops">This message should never show up. I suggests restarting the app and praying it goes away. If that doesn't work try burning your phone and getting a new one.</string>
+    <string name="txt_oops">This message should never show up. I suggests restarting the app and praying it goes away. If that does not work try burning your phone and getting a new one.</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
