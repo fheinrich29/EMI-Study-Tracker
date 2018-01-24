@@ -31,7 +31,7 @@ public class Lectures extends AppCompatActivity {
         lLayoutManager = new LinearLayoutManager(this);
         lRecyclerView.setLayoutManager(lLayoutManager);
 
-        List<CloneLectures.Lecture_list> lectureList = CloneLectures.getCloneList();//Warum??
+        List<CloneLectures.Lecture_list> lectureList = CloneLectures.getCloneList();
         MyAdapterL adapter = new MyAdapterL(lectureList);
 
         lRecyclerView.setAdapter(adapter);
@@ -58,6 +58,7 @@ public class Lectures extends AppCompatActivity {
 
     private class LectureHolder extends RecyclerView.ViewHolder{
 
+
         private List<CloneLectures.Lecture_list> mLectures;
         public MyAdapterL(List<CloneLectures.Lecture_list> lectures) {
             mLectures = lectures;
@@ -77,3 +78,6 @@ public class Lectures extends AppCompatActivity {
         public int getItemCount() {
             return mLectures.size();
         }
+    }
+    }
+    }

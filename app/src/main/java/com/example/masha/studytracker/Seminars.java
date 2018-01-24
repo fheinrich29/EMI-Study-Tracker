@@ -19,22 +19,22 @@ public class Seminars extends AppCompatActivity {
         private RecyclerView.LayoutManager sLayoutManager;
 
         protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_lectures);
-            sRecyclerView = (RecyclerView) findViewById(R.id.s_rv);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_lectures);
+        sRecyclerView = (RecyclerView) findViewById(R.id.s_rv);
 
 
-            sRecyclerView.setHasFixedSize(true);
+        sRecyclerView.setHasFixedSize(true);
 
-            sLayoutManager = new LinearLayoutManager(this);
-            sRecyclerView.setLayoutManager(sLayoutManager);
+        sLayoutManager = new LinearLayoutManager(this);
+        sRecyclerView.setLayoutManager(sLayoutManager);
 
-            //Add information to Seminars_data
-            List<Seminars_data.CloneSeminars.Seminar_list> seminars_lists = CloneLectures.getCloneList();//Warum??
-            MyAdapterS adapter_s = new MyAdapterS(seminars_lists);
+        //Add information to Seminars_data
+        List<Seminars_data.CloneSeminars.Seminar_list> seminars_lists = Seminars_data.CloneSeminars.getCloneList_s();//Warum??
+        MyAdapterS adapter_s = new MyAdapterS(seminars_lists);
 
-            sRecyclerView.setAdapter(adapter);
-        }
+        sRecyclerView.setAdapter(adapter_s);
+    }
 
         CardView s_cv;
         private TextView mSeminarsNumberTextView;
@@ -68,9 +68,9 @@ public class Seminars extends AppCompatActivity {
             }
 
 
-            public void onBindViewHolder_s(CloneLectures.Lecture_list holder, int position) {
-                CloneLectures.Lecture_list lecture = mSeminars.get(position);
-                holder.bindCrime(lecture);
+            public void onBindViewHolder_s(Seminars_data.CloneSeminars holder, int position) {
+                Seminars_data.CloneSeminars.Seminar_list seminar = mSeminars.get(position);
+                holder.bindCrime(seminar);
             }
 
             public int getItemCount() {

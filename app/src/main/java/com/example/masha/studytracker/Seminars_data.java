@@ -7,7 +7,6 @@ import java.util.List;
  * Created by Masha on 24.01.2018.
  */
 
-public class Seminars_data {
     public class CloneSeminars {
         private static CloneSeminars sCloneSeminars;
         private static List<Seminar_list> mSeminarList;

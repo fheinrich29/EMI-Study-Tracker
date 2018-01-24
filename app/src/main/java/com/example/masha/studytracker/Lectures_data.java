@@ -2,6 +2,8 @@ package com.example.masha.studytracker; /**
  * Created by Masha on 24.01.2018.
  */
 
+//this is a sample variant only to get the data from - must be changed!
+
     import java.util.ArrayList;
     import java.util.List;
 
@@ -9,7 +11,13 @@ package com.example.masha.studytracker; /**
     private static CloneLectures sCloneLectures;
     private static List<Lecture_list> mLectureList;
 
-         public class Lecture_list {
+        private static List<Lecture_list> cloneList;
+
+        public static List<Lecture_list> getCloneList() {
+            return cloneList;
+        }
+
+          public class Lecture_list {
              private String l_number;
              private String l_date;
 
@@ -49,7 +57,7 @@ package com.example.masha.studytracker; /**
                      }
                  }
              }
-             public static List<Lecture_list> getCloneList() {
+             public List<Lecture_list> getCloneList() {
                  if (sCloneLectures == null){
                      sCloneLectures = new CloneLectures();
                  }
