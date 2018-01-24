@@ -8,8 +8,8 @@ import java.util.List;
  */
 
 public class Seminars_data {
-    public class CloneLectures {
-        private static CloneLectures sCloneSeminars;
+    public class CloneSeminars {
+        private static CloneSeminars sCloneSeminars;
         private static List<Seminar_list> mSeminarList;
 
         public class Seminar_list {
@@ -25,19 +25,19 @@ public class Seminars_data {
                 this.s_date = s_date;
             }
 
-            public String getNumber() {
+            public String getNumber_s() {
                 return s_number;
             }
 
-            public void setNumber(String number) {
+            public void setNumber_s(String number) {
                 this.s_number = s_number;
             }
 
-            public String getDate() {
+            public String getDate_s() {
                 return s_date;
             }
 
-            public void setDate(String date) {
+            public void setDate_s(String date) {
                 this.s_date = s_date;
             }
 
@@ -52,11 +52,11 @@ public class Seminars_data {
                     }
                 }
             }
-            public static List<Seminar_list> getCloneList() {
+            public static List<Seminar_list> getCloneList_s() {
                 if (sCloneSeminars == null){
                     sCloneSeminars = new CloneSeminars();
                 }
-                return mLectureList;
+                return mSeminarList;
             }
         }
     }

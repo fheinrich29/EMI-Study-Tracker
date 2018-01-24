@@ -30,8 +30,8 @@ public class Seminars extends AppCompatActivity {
             sRecyclerView.setLayoutManager(sLayoutManager);
 
             //Add information to Seminars_data
-            List<CloneSeminars.Seminars_list> lectureList = CloneLectures.getCloneList();//Warum??
-            MyAdapterL adapter = new MyAdapterL(lectureList);
+            List<Seminars_data.CloneSeminars.Seminar_list> seminars_lists = CloneLectures.getCloneList();//Warum??
+            MyAdapterS adapter_s = new MyAdapterS(seminars_lists);
 
             sRecyclerView.setAdapter(adapter);
         }
@@ -39,42 +39,42 @@ public class Seminars extends AppCompatActivity {
         CardView s_cv;
         private TextView mSeminarsNumberTextView;
         private TextView mSeminarsDateTextView;
-        private CloneSeminars.Seminars_list mSeminar;
+        private Seminars_data.CloneSeminars.Seminar_list mSeminar;
 
-        public LectureHolder(View itemView) {
+        public SeminarHolder(View itemView) {
             super(itemView);
             s_cv = (CardView)itemView.findViewById(R.id.s_cv);
             mSeminarsNumberTextView = (TextView) itemView.findViewById(R.id.s_number);
             mSeminarsDateTextView = (TextView) itemView.findViewById(R.id.s_date);
         }
-        public void bindCrime(CloneSeminars.Seminars_list seminar) {
+        public void bindCrime(Seminars_data.CloneSeminars.Seminar_list seminar) {
             mSeminar = seminar;
-            mSeminarsNumberTextView.setText(mSeminar.getNumber());
-            mSeminarsDateTextView.setText(mSeminar.getDate());
+            mSeminarsNumberTextView.setText(mSeminar.getNumber_s());
+            mSeminarsDateTextView.setText(mSeminar.getDate_s());
         }
     }
-    public class MyAdapterL extends RecyclerView.Adapter<MyAdapterL.LectureHolder> {
+    public class MyAdapterS extends RecyclerView.Adapter<MyAdapterS.SeminarHolder> {
 
-        private class LectureHolder extends RecyclerView.ViewHolder{
+        private class SeminarHolder extends RecyclerView.ViewHolder{
 
-            private List<CloneLectures.Lecture_list> mLectures;
-            public MyAdapterS(List<CloneSeminars.Seminars_list> seminars) {
+            private List<Seminars_data.CloneSeminars.Seminar_list> mSeminars;
+            public MyAdapterS(List<Seminars_data.CloneSeminars.Seminar_list> seminars) {
                 mSeminars = seminars;
 
-            public LectureHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            public SeminarHolder onCreateViewHolder_s(ViewGroup parent, int viewType) {
                 LayoutInflater li_s = getLayoutInflater();
                 View view = li_s.inflate(R.layout.item_lectures, parent, false);
-                return new LectureHolder(view);
+                return new SeminarHolder(view);
             }
 
 
-            public void onBindViewHolder(CloneLectures.Lecture_list holder, int position) {
-                CloneLectures.Lecture_list lecture = mLectures.get(position);
+            public void onBindViewHolder_s(CloneLectures.Lecture_list holder, int position) {
+                CloneLectures.Lecture_list lecture = mSeminars.get(position);
                 holder.bindCrime(lecture);
             }
 
             public int getItemCount() {
-                return mLectures.size();
+                return mSeminars.size();
             }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
