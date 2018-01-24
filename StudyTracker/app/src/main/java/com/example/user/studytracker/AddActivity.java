@@ -62,6 +62,9 @@ import java.util.Locale;
          //build layout
          setContentView(R.layout.activity_add);
 
+         editName = findViewById(R.id.editText_name);
+         editName.setText("");
+
 
      }
 
@@ -320,7 +323,6 @@ import java.util.Locale;
          btnAccept.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 editName = findViewById(R.id.editText_name);
                  if (editName.getText().toString().trim().length() == 0) {
                      AlertDialog.Builder builder;
                      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
