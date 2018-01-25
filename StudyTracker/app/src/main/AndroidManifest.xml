@@ -18,9 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".AddActivity" />
-        <activity android:name=".EditRulesActivity" />
-        <activity android:name=".DatenActivity" />
+        <activity android:name=".EditActivity" />
+        <activity android:name=".takePhotoActivity"></activity>
     </application>
 
 </manifest>

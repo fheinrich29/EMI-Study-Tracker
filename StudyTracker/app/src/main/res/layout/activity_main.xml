@@ -13,6 +13,14 @@
         android:orientation="vertical">
 
 
+        <Button
+            android:id="@+id/btnPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_menu_camera"
+            tools:layout_editor_absoluteX="28dp"
+            tools:layout_editor_absoluteY="166dp" />
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_main"
             android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -16,25 +17,33 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public Button btnPhoto;
 
     Toolbar myToolbar;
+    public void init(){
+        btnPhoto=(Button) findViewById(R.id.btnPhoto);
+        btnPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this,takePhotoActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-
-        Intent receivedIntent = getIntent();
-        if(receivedIntent.hasExtra("subject")){
-
-        Subject subj = (Subject) receivedIntent.getSerializableExtra("subject");
-        Toast.makeText(this, subj.toString(), Toast.LENGTH_SHORT).show();
-        }
+        init();
 
 
 
@@ -66,14 +75,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // creates the menu
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
-    // when you click on the settings-button in the toolbar
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
@@ -85,14 +93,21 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    // handles what happens if you click the navigationDrawer
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        //TODO: Löschen / ist nur für die Präsentation
         if (id == R.id.nav_new){
-            startActivity(new Intent(this, AddActivity.class));
+            startActivity(new Intent(this, EditActivity.class));
+        }
+        if (id == R.id.nav_aud) {
+            myToolbar.setTitle(R.string.AuD);
+        }
+        if (id ==R.id.nav_emi) {
+            myToolbar.setTitle("EMI");
         }
         if (id == R.id.nav_all) {
             myToolbar.setTitle("Alle Fächer");
@@ -104,7 +119,6 @@ public class MainActivity extends AppCompatActivity
             return true;
     }
 
-    // builds the UI for the tabs on the bottom
     public void buildTabs(){
         final TabLayout tabLayout = findViewById(R.id.tab_layout);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
