@@ -19,6 +19,8 @@ import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.EOFException;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity
     Toolbar myToolbar;
     List<Subject> subjectList = new ArrayList<Subject>();
     String file_subjectArray = " \\subj_array.txt";
+    NavigationView navigationView;
+    int selected = -1;
 
 
 
@@ -54,11 +58,12 @@ public class MainActivity extends AppCompatActivity
         myToolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(myToolbar);
 
-
-
-
+        getFileInput();
+        buildNavigationDrawer();
         buildTabs();
+
     }
+
 
     @Override
     /**
@@ -66,6 +71,23 @@ public class MainActivity extends AppCompatActivity
      *
      */
     protected void onStart(){
+
+        super.onStart();
+        Intent intent = getIntent();
+        if(intent.hasExtra("subjectChanged")){
+            int pos = intent.getIntExtra("position", 0);
+            subjectList.set(pos, (Subject) intent.getSerializableExtra( "subjectChanged"));
+            onStop();
+            startActivity(new Intent(this, MainActivity.class));
+        }
+        if(intent.hasExtra("subjectsChanged")){
+            subjectList = (List<Subject>) intent.getSerializableExtra("subjectsChanged");
+            onStop();
+            startActivity(new Intent(this, MainActivity.class));
+        }
+    }
+
+    private void getFileInput(){
         try {
             File file = new File(getFilesDir() + file_subjectArray);
             if (file.exists()) {
@@ -89,9 +111,6 @@ public class MainActivity extends AppCompatActivity
             Subject subj = (Subject) receivedIntent.getSerializableExtra("subject");
             subjectList.add(subj);
         }
-        buildNavigationDrawer();
-
-        super.onStart();
     }
 
     /** sets up the navigationDrawer
@@ -107,12 +126,12 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Menu m = navigationView.getMenu();
         myToolbar.setTitle(getString(R.string.all_subjects));
-        SubMenu n= m.addSubMenu(R.id.nav_group_subjects, NONE, NONE, "subjects");
-        MenuItem it = n.add(NONE, 1000, NONE, getString(R.string.all_subjects));
+        SubMenu n= m.addSubMenu(R.id.nav_group_subjects, R.id.submenu_java, NONE, "subjects");
+        MenuItem it = n.add(NONE, R.id.all_subjects, NONE, getString(R.string.all_subjects));
 
         int index = 0;
         for(Subject s:subjectList) {
@@ -189,9 +208,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_new){
             startActivity(new Intent(this, AddActivity.class));
         }
-        if (id == 1000) {
-            myToolbar.setTitle(getString(R.string.all_subjects));
-
+        else{
+            myToolbar.setTitle(item.getTitle());
+            if(id>100){
+                selected=1000;
+            }
+            else{
+                selected = id;
+            }
         }
 
 

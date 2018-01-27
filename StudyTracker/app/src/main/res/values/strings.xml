@@ -10,7 +10,7 @@
     <string name="vorlesungen">lectures</string>
     <string name="uebungen">Exercises</string>
     <string name="daten">Data</string>
-    <string name="bearbeiten">edit subject </string>
+    <string name="bearbeiten">delete subject </string>
     <string name="faelligkeiten">Homework</string>
     <string name="nav_new">Add new subject</string>
     <string name="ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -32,7 +32,8 @@
     <string name="btn_accept">Save </string>
     <string name="btn_edit">Edit </string>
     <string name="all_subjects">All subjects </string>
-    v<string name="btn_new">Add new Rule </string>
+    v
+    <string name="btn_new">Add new Rule </string>
     <string name="txt_missingEntry">Please make sure to fill in all information first.</string>
     <string name="txt_fromAfterTo">Please make sure your start date is before you end date.</string>
     <string name="txt_startAfterEnd">Please make sure your start date is before your end date.</string>
