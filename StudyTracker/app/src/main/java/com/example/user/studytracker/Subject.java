@@ -23,4 +23,9 @@ public class Subject  implements Serializable{
         return "name: "+name+"\n"+
                 "number of occasions"+(lecture.size()+exercise.size()+dueDate.size())+".";
     }
+
+    public String getName(){
+        return name;
+    }
+
 }
