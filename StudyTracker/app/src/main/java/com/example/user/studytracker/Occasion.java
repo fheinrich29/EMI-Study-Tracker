@@ -5,9 +5,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by User on 26/12/2017.
- */
 
 public class Occasion implements Serializable{
 
@@ -22,7 +19,7 @@ public class Occasion implements Serializable{
             this.start = start;
             this.end = end;
             this.attended = attended;
-            this.inThePast = inThePast;
+            this.inThePast = inThePast; // deprecated, not currently in use
         }
 
         //for debugging/testing only

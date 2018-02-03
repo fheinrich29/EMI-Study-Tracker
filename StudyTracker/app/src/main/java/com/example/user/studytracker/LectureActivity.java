@@ -34,8 +34,9 @@ public class LectureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lecture);
 
         Toolbar myToolbar = findViewById(R.id.toolbar_settings);
-        setSupportActionBar(myToolbar);
         myToolbar.setTitle("Lectures");
+        setSupportActionBar(myToolbar);
+
 
 
         Intent receivedIntent = getIntent();

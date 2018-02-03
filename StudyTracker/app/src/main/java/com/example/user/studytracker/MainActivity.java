@@ -1,8 +1,8 @@
+
+
 package com.example.user.studytracker;
 
 
-import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -19,19 +19,14 @@ import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 

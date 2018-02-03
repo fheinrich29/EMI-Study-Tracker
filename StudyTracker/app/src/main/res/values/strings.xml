@@ -6,9 +6,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="all">All subjects</string>
-    <string name="AuD">AuD</string>
-    <string name="vorlesungen">lectures</string>
-    <string name="uebungen">Exercises</string>
+    <string name="vorlesungen">Lectures  </string>
+    <string name="uebungen">Exercises </string>
     <string name="daten">Data</string>
     <string name="bearbeiten">delete subject </string>
     <string name="faelligkeiten">Homework</string>

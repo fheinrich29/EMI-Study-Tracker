@@ -20,6 +20,12 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+        <Button
+            android:id="@+id/btn_saveChanges_exe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_accept" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -32,11 +38,6 @@
 
         </ScrollView>
 
-        <Button
-            android:id="@+id/btn_saveChanges_exe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_accept" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

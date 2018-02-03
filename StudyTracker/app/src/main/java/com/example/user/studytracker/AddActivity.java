@@ -101,13 +101,6 @@ import java.util.Locale;
          }
 
 
-         // for testing-purposes only TODO: DELETE!!!
-         Calendar cal = Calendar.getInstance();
-         EventRule test = new EventRule(true, cal, cal, 1, 1, 5, 0, cal, cal);
-         tes2 = new EventRule(true, cal, cal, 1, 7, 5, 0, cal, cal);
-         lectureRules.add(test);
-         lectureRules.add(tes2);
-
 
          //get Intent that called tis Activity + check for extra
          Intent receivedIntent = getIntent();
