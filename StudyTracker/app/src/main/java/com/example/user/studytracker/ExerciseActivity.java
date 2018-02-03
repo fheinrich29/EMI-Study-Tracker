@@ -30,8 +30,8 @@ public class ExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_exercise);
 
         Toolbar myToolbar = findViewById(R.id.toolbar_exe);
-        setSupportActionBar(myToolbar);
         myToolbar.setTitle("Exercises");
+        setSupportActionBar(myToolbar);
 
         Intent receivedIntent = getIntent();
         if (receivedIntent.hasExtra("subject")) {

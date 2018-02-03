@@ -29,9 +29,9 @@ public class HomeworkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework);
 
-        Toolbar myToolbar = findViewById(R.id.toolbar_exe);
-        setSupportActionBar(myToolbar);
+        Toolbar myToolbar = findViewById(R.id.toolbar_homework);
         myToolbar.setTitle("Homework");
+        setSupportActionBar(myToolbar);
 
         Intent receivedIntent = getIntent();
         if (receivedIntent.hasExtra("subject")) {
