@@ -1,5 +1,6 @@
 package com.example.user.studytracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,22 +21,46 @@ public class StatisticsFragment extends Fragment {
     int selected;
     List<Subject> subjectsList = new ArrayList<>();
     MainActivity ma;
+    Button Share;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         fragmentView = inflater.inflate(R.layout.fragment_statistics, container, false);
+
+        Share=(Button) fragmentView.findViewById(R.id.Share);
+        Share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {     Intent sharing= new Intent(Intent.ACTION_SEND);
+                String shareBody= "Your body here";
+                String shareSub="Your Subjekt here";
+                sharing.putExtra(Intent.EXTRA_SUBJECT,shareBody);
+                sharing.putExtra(Intent.EXTRA_TEXT,shareSub);
+
+
+                sharing.setType("text/plain");
+                startActivity(Intent.createChooser(sharing,"Use Share"));
+
+
+
+            }
+
+
+        });
 
         ma = (MainActivity) getActivity();
 
 
         return fragmentView;
+
     }
 
     @Override
@@ -76,6 +101,12 @@ public class StatisticsFragment extends Fragment {
             fillTextViews(1, (TextView) fragmentView.findViewById(R.id.txt_stats_lec_01), (TextView) fragmentView.findViewById(R.id.txt_stats_lec_02));
             fillTextViews(2, (TextView) fragmentView.findViewById(R.id.txt_stats_exe_01), (TextView) fragmentView.findViewById(R.id.txt_stats_exe_02));
             fillTextViews(3, (TextView) fragmentView.findViewById(R.id.txt_stats_home_01), (TextView) fragmentView.findViewById(R.id.txt_stats_home_02));
+        }
+        else{
+            fillTextViews(1, (TextView) fragmentView.findViewById(R.id.txt_stats_lec_01), (TextView) fragmentView.findViewById(R.id.txt_stats_lec_02));
+            fillTextViews(2, (TextView) fragmentView.findViewById(R.id.txt_stats_exe_01), (TextView) fragmentView.findViewById(R.id.txt_stats_exe_02));
+            fillTextViews(3, (TextView) fragmentView.findViewById(R.id.txt_stats_home_01), (TextView) fragmentView.findViewById(R.id.txt_stats_home_02));
+
         }
 
 

@@ -54,7 +54,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/Data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_homework"

@@ -28,6 +28,8 @@ public class LectureFragment extends Fragment {
     List<Subject> subjectList;
     int selected;
     MainActivity ma;
+    Button Data;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,14 @@ public class LectureFragment extends Fragment {
         ma = (MainActivity) getActivity();
         subjectList = ma.subjectList;
 
-
+        Data=(Button) fragmentView.findViewById(R.id.Data);
+        Data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent wechselMain= new Intent(getActivity(),takePhotoActivity.class);
+                startActivity(wechselMain);
+            }
+        });
         btnDelete = (Button) fragmentView.findViewById(R.id.button);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
